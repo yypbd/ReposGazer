@@ -18,11 +18,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="/bin/release/GitFinder"/>
+            <Filename Value="bin/release/GitFinder"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)/release"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\release"/>
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -81,11 +81,11 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="/bin/debug/GitFinder"/>
+      <Filename Value="bin/debug/GitFinder"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)/debug"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\debug"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
