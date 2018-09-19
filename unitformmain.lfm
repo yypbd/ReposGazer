@@ -1,0 +1,69 @@
+object FormMain: TFormMain
+  Left = 266
+  Height = 771
+  Top = 134
+  Width = 1234
+  Caption = 'FormMain'
+  ClientHeight = 771
+  ClientWidth = 1234
+  Position = poScreenCenter
+  LCLVersion = '1.8.2.0'
+  object ListViewRepo: TListView
+    Left = 0
+    Height = 503
+    Top = 58
+    Width = 1234
+    Align = alClient
+    Columns = <    
+      item
+        Width = 150
+      end    
+      item
+        Width = 400
+      end    
+      item
+        Width = 100
+      end    
+      item
+        Width = 100
+      end    
+      item
+        Width = 100
+      end>
+    ReadOnly = True
+    RowSelect = True
+    TabOrder = 0
+    ViewStyle = vsReport
+    OnSelectItem = ListViewRepoSelectItem
+  end
+  object MemoMessage: TMemo
+    Left = 0
+    Height = 210
+    Top = 561
+    Width = 1234
+    Align = alBottom
+    Lines.Strings = (
+      'MemoMessage'
+    )
+    TabOrder = 1
+  end
+  object PanelTop: TPanel
+    Left = 0
+    Height = 58
+    Top = 0
+    Width = 1234
+    Align = alTop
+    ClientHeight = 58
+    ClientWidth = 1234
+    TabOrder = 2
+    object ButtonReadProjects: TButton
+      Left = 16
+      Height = 33
+      Top = 12
+      Width = 111
+      Caption = 'Read Projects'
+      OnClick = ButtonReadProjectsClick
+      TabOrder = 0
+    end
+  end
+end
