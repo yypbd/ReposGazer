@@ -186,12 +186,12 @@ begin
 
   Output := RunGitBranch(Path);
   Line := ParseLnGitBranch(Output);
-  AListItem.SubItems[2] := Line;;
+  AListItem.SubItems[2] := Line;
   AListItem.SubItems[12] := Output;
 
   Output := RunGitStatus(Path);
   Line := ParseLnGitStatus(Output);
-  AListItem.SubItems[3] := Line;;
+  AListItem.SubItems[3] := Line;
   AListItem.SubItems[13] := Output;
 
 end;
