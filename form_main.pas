@@ -1,4 +1,4 @@
-unit UnitFormMain;
+unit form_main;
 
 {$mode objfpc}{$H+}
 
@@ -20,7 +20,6 @@ type
       Selected: Boolean);
   private
     procedure SearchDirectory(const APath: string);
-    function ExistsDotGitDirecotry(AFileList: TStringList): Boolean;
     function ParseRemote(const AOutput: string): string;
     procedure FindGitRemote;
   protected
@@ -36,7 +35,7 @@ var
 implementation
 
 uses
-  ProcessCustom;
+  process_addon, util_git;
 
 {$R *.lfm}
 
@@ -94,7 +93,7 @@ begin
     if FileList.Count = 0 then
       Exit;
 
-    if ExistsDotGitDirecotry(FileList) then
+    if ExistsDotGit(FileList) then
     begin
       ListItem := ListViewRepo.Items.Add;
 
@@ -110,21 +109,6 @@ begin
     end;
   finally
     FileList.Free;;
-  end;
-end;
-
-function TFormMain.ExistsDotGitDirecotry(AFileList: TStringList): Boolean;
-var
-  I: Integer;
-begin
-  Result := False;
-  for I := 0 to AFileList.Count - 1 do
-  begin
-    if LowerCase(Copy(AFileList.Strings[I], Length(AFileList.Strings[I]) - 4, 5)) = PathDelim + '.git' then
-    begin
-      Result := True;
-      Exit;
-    end;
   end;
 end;
 

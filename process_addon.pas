@@ -1,4 +1,4 @@
-unit ProcessCustom;
+unit process_addon;
 
 {$mode objfpc}{$H+}
 
