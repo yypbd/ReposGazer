@@ -12,16 +12,19 @@ type
   { TFormMain }
   TFormMain = class(TForm)
     ButtonReadProjects: TButton;
+    ButtonRefresh: TButton;
     ListViewRepo: TListView;
     MemoMessage: TMemo;
     PanelTop: TPanel;
+    SplitterMain: TSplitter;
     procedure ButtonReadProjectsClick(Sender: TObject);
+    procedure ButtonRefreshClick(Sender: TObject);
     procedure ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
   private
     procedure SearchDirectory(const APath: string);
-    function ParseRemote(const AOutput: string): string;
-    procedure FindGitRemote;
+    procedure RefreshRepoInfos;
+    procedure RefreshRepoInfo(AListItem: TListItem);
   protected
     procedure DoCreate; override;
     procedure DoDestroy; override;
@@ -35,7 +38,7 @@ var
 implementation
 
 uses
-  process_addon, util_git;
+  util_git;
 
 {$R *.lfm}
 
@@ -51,30 +54,41 @@ begin
 
     SearchDirectory(Directory);
 
-    FindGitRemote;
+    RefreshRepoInfos;
   end;
+end;
+
+procedure TFormMain.ButtonRefreshClick(Sender: TObject);
+begin
+  RefreshRepoInfos;
 end;
 
 procedure TFormMain.ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 var
-  Path: string;
   Output: string;
-  Status: Integer;
 begin
   if Selected and (Item <> nil) then
   begin
     MemoMessage.Lines.Clear;
-    Path := Item.SubItems[0];
 
-    if not DirectoryExists(Path) then Exit;
-
-    RunCommandIndirCustom(Path, 'git', ['remote', '-v'], Output, Status);
-
+    Output := item.SubItems[11];
     Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
     if Output <> '' then
     begin
-      MemoMessage.Lines.Add('git remote -v');
+      MemoMessage.Lines.Add('> git remote -v');
+      MemoMessage.Lines.Add('');
+      MemoMessage.Lines.Add(Output);
+    end;
+
+    MemoMessage.Lines.Add('');
+    MemoMessage.Lines.Add('');
+
+    Output := item.SubItems[12];
+    Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
+    if Output <> '' then
+    begin
+      MemoMessage.Lines.Add('> git branch -a');
       MemoMessage.Lines.Add('');
       MemoMessage.Lines.Add(Output);
     end;
@@ -99,6 +113,16 @@ begin
 
       ListItem.Caption := ExtractFileName(APath);
       ListItem.SubItems.Add(APath);
+
+      // Line Data
+      // 1 ~ 10
+      for I := 0 to 9 do
+        ListItem.SubItems.Add('');
+
+      // Hidden Data
+      // 11 ~ 20
+      for I := 0 to 9 do
+        ListItem.SubItems.Add('');
     end
     else
     begin
@@ -112,43 +136,34 @@ begin
   end;
 end;
 
-function TFormMain.ParseRemote(const AOutput: string): string;
-var
-  Pos1, Pos2: Integer;
-begin
-  Result := '';
-
-  if AOutput = '' then Exit;
-
-  Pos1 := Pos(#9, AOutput);
-  Pos2 := Pos(#10, AOutput);
-  if (Pos1 > 0) and (Pos2 > 0) then
-  begin
-    Result := Copy(AOutput, Pos1 + 1, Pos2 - Pos1 - 1);
-  end;
-end;
-
-procedure TFormMain.FindGitRemote;
+procedure TFormMain.RefreshRepoInfos;
 var
   I: Integer;
-  Path: string;
-  Status: Integer;
-  Output: string;
 begin
   for I := 0 to ListViewRepo.Items.Count - 1 do
   begin
-    Path := ListViewRepo.Items[I].SubItems[0];
-
-    if not DirectoryExists(Path) then Exit;
-
-    RunCommandIndirCustom(Path, 'git', ['remote', '-v'], Output, Status);
-    // RunCommandIndir(Path, 'git', ['remote', '-v'], Output, Status);
-
-    // Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
-    Output := ParseRemote(Output);
-
-    ListViewRepo.Items[I].SubItems.Add(Output);
+    RefreshRepoInfo( ListViewRepo.Items[I] );
   end;
+end;
+
+procedure TFormMain.RefreshRepoInfo(AListItem: TListItem);
+var
+  Path: string;
+  Output: string;
+  Line: string;
+begin
+  Path := AListItem.SubItems[0];
+
+  Output := RunGitRemote(Path);
+  Line := ParseLnGitRemote(Output);
+  AListItem.SubItems[1] := Line;
+  AListItem.SubItems[11] := Output;
+
+  Output := RunGitBranch(Path);
+  Line := ParseLnGitBranch(Output);
+  AListItem.SubItems[2] := Line;;
+  AListItem.SubItems[12] := Output;
+
 end;
 
 procedure TFormMain.DoCreate;

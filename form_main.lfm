@@ -10,7 +10,7 @@ object FormMain: TFormMain
   LCLVersion = '1.8.2.0'
   object ListViewRepo: TListView
     Left = 0
-    Height = 503
+    Height = 498
     Top = 58
     Width = 973
     Align = alClient
@@ -28,6 +28,7 @@ object FormMain: TFormMain
         Width = 250
       end    
       item
+        Caption = 'Cur Branch'
         Width = 100
       end>
     ReadOnly = True
@@ -42,9 +43,7 @@ object FormMain: TFormMain
     Top = 561
     Width = 973
     Align = alBottom
-    Lines.Strings = (
-      'MemoMessage'
-    )
+    ScrollBars = ssAutoBoth
     TabOrder = 1
   end
   object PanelTop: TPanel
@@ -65,5 +64,23 @@ object FormMain: TFormMain
       OnClick = ButtonReadProjectsClick
       TabOrder = 0
     end
+    object ButtonRefresh: TButton
+      Left = 156
+      Height = 33
+      Top = 12
+      Width = 111
+      Caption = 'Refresh'
+      OnClick = ButtonRefreshClick
+      TabOrder = 1
+    end
+  end
+  object SplitterMain: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 556
+    Width = 973
+    Align = alBottom
+    ResizeAnchor = akBottom
   end
 end
