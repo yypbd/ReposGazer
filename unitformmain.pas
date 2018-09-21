@@ -19,12 +19,8 @@ type
     procedure ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
   private
-    FFileList: TStringList;
-
-    procedure OnDirectoryFound(FileIterator: TFileIterator);
-
     procedure SearchDirectory(const APath: string);
-    function ExistsDotGitDirecotry: Boolean;
+    function ExistsDotGitDirecotry(AFileList: TStringList): Boolean;
     function ParseRemote(const AOutput: string): string;
     procedure FindGitRemote;
   protected
@@ -86,63 +82,45 @@ begin
   end;
 end;
 
-procedure TFormMain.OnDirectoryFound(FileIterator: TFileIterator);
-begin
-  if FileIterator.IsDirectory then
-  begin
-    FFileList.Add(FileIterator.FileName);
-  end;
-end;
-
 procedure TFormMain.SearchDirectory(const APath: string);
 var
-  FileSearcher: TFileSearcher;
-  I: Integer;
   FileList: TStringList;
+  I: Integer;
   ListItem: TListItem;
 begin
-  FileSearcher := TFileSearcher.Create;
+  FileList := FindAllDirectories(APath, False);
+
   try
-    FileSearcher.OnDirectoryFound := @OnDirectoryFound;
-    FileSearcher.DirectoryAttribute := faAnyFile;
-    FileSearcher.Search(APath, '', False, False);
-  finally
-    FileSearcher.Free;
-  end;
+    if FileList.Count = 0 then
+      Exit;
 
-  if ExistsDotGitDirecotry then
-  begin
-    FFileList.Clear;
+    if ExistsDotGitDirecotry(FileList) then
+    begin
+      ListItem := ListViewRepo.Items.Add;
 
-    ListItem := ListViewRepo.Items.Add;
-
-    ListItem.Caption := ExtractFileName(APath);
-    ListItem.SubItems.Add(APath);
-  end
-  else
-  begin
-    FileList := TStringList.Create;
-    try
-      FileList.Assign(FFileList);
-      FFileList.Clear;
+      ListItem.Caption := ExtractFileName(APath);
+      ListItem.SubItems.Add(APath);
+    end
+    else
+    begin
       for I := 0 to FileList.Count - 1 do
       begin
         SearchDirectory(FileList.Strings[I]);
       end;
-    finally
-      FileList.Free;
     end;
+  finally
+    FileList.Free;;
   end;
 end;
 
-function TFormMain.ExistsDotGitDirecotry: Boolean;
+function TFormMain.ExistsDotGitDirecotry(AFileList: TStringList): Boolean;
 var
   I: Integer;
 begin
   Result := False;
-  for I := 0 to FFileList.Count - 1 do
+  for I := 0 to AFileList.Count - 1 do
   begin
-    if LowerCase(Copy(FFileList.Strings[I], Length(FFileList.Strings[I]) - 4, 5)) = PathDelim + '.git' then
+    if LowerCase(Copy(AFileList.Strings[I], Length(AFileList.Strings[I]) - 4, 5)) = PathDelim + '.git' then
     begin
       Result := True;
       Exit;
@@ -192,13 +170,10 @@ end;
 procedure TFormMain.DoCreate;
 begin
   Caption := Application.Title;
-
-  FFileList := TStringList.Create;
 end;
 
 procedure TFormMain.DoDestroy;
 begin
-  FFileList.Free;
 end;
 
 end.

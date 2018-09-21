@@ -2,30 +2,30 @@ object FormMain: TFormMain
   Left = 266
   Height = 771
   Top = 134
-  Width = 1234
+  Width = 973
   Caption = 'FormMain'
   ClientHeight = 771
-  ClientWidth = 1234
+  ClientWidth = 973
   Position = poScreenCenter
   LCLVersion = '1.8.2.0'
   object ListViewRepo: TListView
     Left = 0
     Height = 503
     Top = 58
-    Width = 1234
+    Width = 973
     Align = alClient
     Columns = <    
       item
+        Caption = 'Repo'
         Width = 150
       end    
       item
+        Caption = 'Real Path'
         Width = 400
       end    
       item
-        Width = 100
-      end    
-      item
-        Width = 100
+        Caption = 'Remote'
+        Width = 250
       end    
       item
         Width = 100
@@ -40,7 +40,7 @@ object FormMain: TFormMain
     Left = 0
     Height = 210
     Top = 561
-    Width = 1234
+    Width = 973
     Align = alBottom
     Lines.Strings = (
       'MemoMessage'
@@ -51,10 +51,10 @@ object FormMain: TFormMain
     Left = 0
     Height = 58
     Top = 0
-    Width = 1234
+    Width = 973
     Align = alTop
     ClientHeight = 58
-    ClientWidth = 1234
+    ClientWidth = 973
     TabOrder = 2
     object ButtonReadProjects: TButton
       Left = 16
