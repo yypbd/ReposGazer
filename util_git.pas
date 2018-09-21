@@ -15,6 +15,9 @@ uses
   function RunGitBranch(const APath: string): string;
   function ParseLnGitBranch(const AOutput: string): string;
 
+  function RunGitStatus(const APath: string): string;
+  function ParseLnGitStatus(const AOutput: string): string;
+
 implementation
 
 uses
@@ -66,7 +69,7 @@ begin
   if AOutput = '' then Exit;
 
   Pos1 := Pos(#9, AOutput);
-  Pos2 := Pos(#10, AOutput);
+  Pos2 := Pos(' ', AOutput);
   if (Pos1 > 0) and (Pos2 > 0) then
   begin
     Result := Copy(AOutput, Pos1 + 1, Pos2 - Pos1 - 1);
@@ -118,6 +121,27 @@ begin
   finally
     StringList.Free;
   end;
+end;
+
+function RunGitStatus(const APath: string): string;
+var
+  Output: string;
+  Status: Integer;
+begin
+  Result := '';
+
+  if not DirectoryExists(APath) then
+    Exit;
+
+  if RunCommandIndirCustom(APath, 'git', ['status', '-s'], Output, Status) = 0 then
+  begin
+    Result := Output;
+  end;
+end;
+
+function ParseLnGitStatus(const AOutput: string): string;
+begin
+  Result := '';
 end;
 
 end.

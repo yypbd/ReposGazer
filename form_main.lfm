@@ -17,11 +17,11 @@ object FormMain: TFormMain
     Columns = <    
       item
         Caption = 'Repo'
-        Width = 150
+        Width = 120
       end    
       item
         Caption = 'Real Path'
-        Width = 400
+        Width = 250
       end    
       item
         Caption = 'Remote'
@@ -79,9 +79,9 @@ object FormMain: TFormMain
     Height = 200
     Top = 571
     Width = 973
-    ActivePage = TabSheet3
+    ActivePage = TabSheet4
     Align = alBottom
-    TabIndex = 2
+    TabIndex = 3
     TabOrder = 3
     object TabSheet1: TTabSheet
       Caption = 'Basic Info'
@@ -116,6 +116,20 @@ object FormMain: TFormMain
       ClientHeight = 172
       ClientWidth = 965
       object MemoBranch: TMemo
+        Left = 0
+        Height = 172
+        Top = 0
+        Width = 965
+        Align = alClient
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Status'
+      ClientHeight = 172
+      ClientWidth = 965
+      object MemoStatus: TMemo
         Left = 0
         Height = 172
         Top = 0

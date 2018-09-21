@@ -15,6 +15,7 @@ type
     ButtonRefresh: TButton;
     ListViewRepo: TListView;
     MemoBasicInfo: TMemo;
+    MemoStatus: TMemo;
     MemoRemote: TMemo;
     MemoBranch: TMemo;
     PageControlInfo: TPageControl;
@@ -23,6 +24,7 @@ type
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     procedure ButtonReadProjectsClick(Sender: TObject);
     procedure ButtonRefreshClick(Sender: TObject);
     procedure ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
@@ -104,6 +106,17 @@ begin
       MemoBranch.Lines.Add('');
       MemoBranch.Lines.Add(Output);
     end;
+
+    MemoStatus.Lines.Clear;
+    Output := item.SubItems[13];
+    Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
+    if Output <> '' then
+    begin
+      MemoStatus.Lines.Add('> git status -s');
+      MemoStatus.Lines.Add('---------------');
+      MemoStatus.Lines.Add('');
+      MemoStatus.Lines.Add(Output);
+    end;
   end;
 end;
 
@@ -175,6 +188,11 @@ begin
   Line := ParseLnGitBranch(Output);
   AListItem.SubItems[2] := Line;;
   AListItem.SubItems[12] := Output;
+
+  Output := RunGitStatus(Path);
+  Line := ParseLnGitStatus(Output);
+  AListItem.SubItems[3] := Line;;
+  AListItem.SubItems[13] := Output;
 
 end;
 
