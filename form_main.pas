@@ -14,9 +14,15 @@ type
     ButtonReadProjects: TButton;
     ButtonRefresh: TButton;
     ListViewRepo: TListView;
-    MemoMessage: TMemo;
+    MemoBasicInfo: TMemo;
+    MemoRemote: TMemo;
+    MemoBranch: TMemo;
+    PageControlInfo: TPageControl;
     PanelTop: TPanel;
     SplitterMain: TSplitter;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
     procedure ButtonReadProjectsClick(Sender: TObject);
     procedure ButtonRefreshClick(Sender: TObject);
     procedure ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
@@ -70,27 +76,33 @@ var
 begin
   if Selected and (Item <> nil) then
   begin
-    MemoMessage.Lines.Clear;
+    MemoBasicInfo.Lines.Clear;
+    MemoBasicInfo.Lines.Add('== Path ==');
+    MemoBasicInfo.Lines.Add(Item.SubItems[0]);
+    MemoBasicInfo.Lines.Add('');
+    MemoBasicInfo.Lines.Add('== Repo ==');
+    MemoBasicInfo.Lines.Add(Item.SubItems[1]);
 
+    MemoRemote.Lines.Clear;
     Output := item.SubItems[11];
     Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
     if Output <> '' then
     begin
-      MemoMessage.Lines.Add('> git remote -v');
-      MemoMessage.Lines.Add('');
-      MemoMessage.Lines.Add(Output);
+      MemoRemote.Lines.Add('> git remote -v');
+      MemoRemote.Lines.Add('---------------');
+      MemoRemote.Lines.Add('');
+      MemoRemote.Lines.Add(Output);
     end;
 
-    MemoMessage.Lines.Add('');
-    MemoMessage.Lines.Add('');
-
+    MemoBranch.Lines.Clear;
     Output := item.SubItems[12];
     Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
     if Output <> '' then
     begin
-      MemoMessage.Lines.Add('> git branch -a');
-      MemoMessage.Lines.Add('');
-      MemoMessage.Lines.Add(Output);
+      MemoBranch.Lines.Add('> git branch -a');
+      MemoBranch.Lines.Add('---------------');
+      MemoBranch.Lines.Add('');
+      MemoBranch.Lines.Add(Output);
     end;
   end;
 end;
@@ -169,6 +181,8 @@ end;
 procedure TFormMain.DoCreate;
 begin
   Caption := Application.Title;
+
+  PageControlInfo.ActivePageIndex := 0;
 end;
 
 procedure TFormMain.DoDestroy;

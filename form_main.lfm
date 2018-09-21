@@ -10,7 +10,7 @@ object FormMain: TFormMain
   LCLVersion = '1.8.2.0'
   object ListViewRepo: TListView
     Left = 0
-    Height = 498
+    Height = 508
     Top = 58
     Width = 973
     Align = alClient
@@ -37,15 +37,6 @@ object FormMain: TFormMain
     ViewStyle = vsReport
     OnSelectItem = ListViewRepoSelectItem
   end
-  object MemoMessage: TMemo
-    Left = 0
-    Height = 210
-    Top = 561
-    Width = 973
-    Align = alBottom
-    ScrollBars = ssAutoBoth
-    TabOrder = 1
-  end
   object PanelTop: TPanel
     Left = 0
     Height = 58
@@ -54,7 +45,7 @@ object FormMain: TFormMain
     Align = alTop
     ClientHeight = 58
     ClientWidth = 973
-    TabOrder = 2
+    TabOrder = 1
     object ButtonReadProjects: TButton
       Left = 16
       Height = 33
@@ -78,9 +69,61 @@ object FormMain: TFormMain
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 556
+    Top = 566
     Width = 973
     Align = alBottom
     ResizeAnchor = akBottom
+  end
+  object PageControlInfo: TPageControl
+    Left = 0
+    Height = 200
+    Top = 571
+    Width = 973
+    ActivePage = TabSheet3
+    Align = alBottom
+    TabIndex = 2
+    TabOrder = 3
+    object TabSheet1: TTabSheet
+      Caption = 'Basic Info'
+      ClientHeight = 172
+      ClientWidth = 965
+      object MemoBasicInfo: TMemo
+        Left = 0
+        Height = 172
+        Top = 0
+        Width = 965
+        Align = alClient
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Remote'
+      ClientHeight = 172
+      ClientWidth = 965
+      object MemoRemote: TMemo
+        Left = 0
+        Height = 172
+        Top = 0
+        Width = 965
+        Align = alClient
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Branch'
+      ClientHeight = 172
+      ClientWidth = 965
+      object MemoBranch: TMemo
+        Left = 0
+        Height = 172
+        Top = 0
+        Width = 965
+        Align = alClient
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+      end
+    end
   end
 end
