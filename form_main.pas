@@ -33,6 +33,12 @@ type
     procedure SearchDirectory(const APath: string);
     procedure RefreshRepoInfos;
     procedure RefreshRepoInfo(AListItem: TListItem);
+
+    procedure ShowInfo(Item: TListItem);
+    procedure ShowBasicInfo(Item: TListItem);
+    procedure ShowRemoteInfo(Item: TListItem);
+    procedure ShowBranchInfo(Item: TListItem);
+    procedure ShowStatusInfo(Item: TListItem);
   protected
     procedure DoCreate; override;
     procedure DoDestroy; override;
@@ -73,50 +79,10 @@ end;
 
 procedure TFormMain.ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
-var
-  Output: string;
 begin
   if Selected and (Item <> nil) then
   begin
-    MemoBasicInfo.Lines.Clear;
-    MemoBasicInfo.Lines.Add('== Path ==');
-    MemoBasicInfo.Lines.Add(Item.SubItems[0]);
-    MemoBasicInfo.Lines.Add('');
-    MemoBasicInfo.Lines.Add('== Repo ==');
-    MemoBasicInfo.Lines.Add(Item.SubItems[1]);
-
-    MemoRemote.Lines.Clear;
-    Output := item.SubItems[11];
-    Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
-    if Output <> '' then
-    begin
-      MemoRemote.Lines.Add('> git remote -v');
-      MemoRemote.Lines.Add('---------------');
-      MemoRemote.Lines.Add('');
-      MemoRemote.Lines.Add(Output);
-    end;
-
-    MemoBranch.Lines.Clear;
-    Output := item.SubItems[12];
-    Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
-    if Output <> '' then
-    begin
-      MemoBranch.Lines.Add('> git branch -a');
-      MemoBranch.Lines.Add('---------------');
-      MemoBranch.Lines.Add('');
-      MemoBranch.Lines.Add(Output);
-    end;
-
-    MemoStatus.Lines.Clear;
-    Output := item.SubItems[13];
-    Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
-    if Output <> '' then
-    begin
-      MemoStatus.Lines.Add('> git status -s');
-      MemoStatus.Lines.Add('---------------');
-      MemoStatus.Lines.Add('');
-      MemoStatus.Lines.Add(Output);
-    end;
+    ShowInfo(Item);
   end;
 end;
 
@@ -167,7 +133,7 @@ var
 begin
   for I := 0 to ListViewRepo.Items.Count - 1 do
   begin
-    RefreshRepoInfo( ListViewRepo.Items[I] );
+    RefreshRepoInfo(ListViewRepo.Items[I]);
   end;
 end;
 
@@ -176,6 +142,7 @@ var
   Path: string;
   Output: string;
   Line: string;
+  Line2: string;
 begin
   Path := AListItem.SubItems[0];
 
@@ -190,10 +157,76 @@ begin
   AListItem.SubItems[12] := Output;
 
   Output := RunGitStatus(Path);
-  Line := ParseLnGitStatus(Output);
+  ParseLnGitStatus(Output, Line, Line2);
   AListItem.SubItems[3] := Line;
+  AListItem.SubItems[4] := Line2;
   AListItem.SubItems[13] := Output;
+end;
 
+procedure TFormMain.ShowInfo(Item: TListItem);
+begin
+  ShowBasicInfo(Item);
+  ShowRemoteInfo(Item);
+  ShowBranchInfo(Item);
+  ShowStatusInfo(Item);
+end;
+
+procedure TFormMain.ShowBasicInfo(Item: TListItem);
+begin
+  MemoBasicInfo.Lines.Clear;
+  MemoBasicInfo.Lines.Add('== Path ==');
+  MemoBasicInfo.Lines.Add(Item.SubItems[0]);
+  MemoBasicInfo.Lines.Add('');
+  MemoBasicInfo.Lines.Add('== Repo ==');
+  MemoBasicInfo.Lines.Add(Item.SubItems[1]);
+end;
+
+procedure TFormMain.ShowRemoteInfo(Item: TListItem);
+var
+  Output: string;
+begin
+  MemoRemote.Lines.Clear;
+  Output := Item.SubItems[11];
+  Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
+  if Output <> '' then
+  begin
+    MemoRemote.Lines.Add('> git remote -v');
+    MemoRemote.Lines.Add('---------------');
+    MemoRemote.Lines.Add('');
+    MemoRemote.Lines.Add(Output);
+  end;
+end;
+
+procedure TFormMain.ShowBranchInfo(Item: TListItem);
+var
+  Output: string;
+begin
+  MemoBranch.Lines.Clear;
+  Output := Item.SubItems[12];
+  Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
+  if Output <> '' then
+  begin
+    MemoBranch.Lines.Add('> git branch -a');
+    MemoBranch.Lines.Add('---------------');
+    MemoBranch.Lines.Add('');
+    MemoBranch.Lines.Add(Output);
+  end;
+end;
+
+procedure TFormMain.ShowStatusInfo(Item: TListItem);
+var
+  Output: string;
+begin
+  MemoStatus.Lines.Clear;
+  Output := Item.SubItems[13];
+  Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
+  if Output <> '' then
+  begin
+    MemoStatus.Lines.Add('> git status -s');
+    MemoStatus.Lines.Add('---------------');
+    MemoStatus.Lines.Add('');
+    MemoStatus.Lines.Add(Output);
+  end;
 end;
 
 procedure TFormMain.DoCreate;
@@ -201,6 +234,7 @@ begin
   Caption := Application.Title;
 
   PageControlInfo.ActivePageIndex := 0;
+  DoubleBuffered := True;
 end;
 
 procedure TFormMain.DoDestroy;

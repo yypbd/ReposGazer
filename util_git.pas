@@ -16,7 +16,7 @@ uses
   function ParseLnGitBranch(const AOutput: string): string;
 
   function RunGitStatus(const APath: string): string;
-  function ParseLnGitStatus(const AOutput: string): string;
+  procedure ParseLnGitStatus(const AOutput: string; var AIndex, AWorkTree: string);
 
 implementation
 
@@ -139,9 +139,124 @@ begin
   end;
 end;
 
-function ParseLnGitStatus(const AOutput: string): string;
+procedure ParseLnGitStatus(const AOutput: string; var AIndex, AWorkTree: string);
+var
+  StringList: TStringList;
+  I: Integer;
+
+  IndexChar, WorkTreeChar: Char;
+  Index_M, Index_A, Index_D, Index_R, Index_C: Integer;
+  WorkTree_M, WorkTree_D, WorkTree_R, WorkTree_C: Integer;
 begin
-  Result := '';
+  AIndex := '';
+  AWorkTree := '';
+
+  StringList := TStringList.Create;
+
+  try
+    StringList.StrictDelimiter := True;
+    StringList.Delimiter := #10;
+    StringList.DelimitedText := AOutput;
+
+    Index_M := 0;
+    Index_A := 0;
+    Index_D := 0;
+    Index_R := 0;
+    Index_C := 0;
+
+    WorkTree_M := 0;
+    WorkTree_D := 0;
+    WorkTree_R := 0;
+    WorkTree_C := 0;
+
+    for I := 0 to StringList.Count - 1 do
+    begin
+      if Length(StringList.Strings[I]) > 3 then
+      begin
+        // Read status counts
+        IndexChar := StringList.Strings[I][1];
+        WorkTreeChar := StringList.Strings[I][2];
+
+        if IndexChar = 'M' then
+        begin
+          Inc(Index_M);
+        end
+        else if IndexChar = 'A' then
+        begin
+          Inc(Index_A);
+        end
+        else if IndexChar = 'D' then
+        begin
+          Inc(Index_D);
+        end
+        else if IndexChar = 'R' then
+        begin
+          Inc(Index_R);
+        end
+        else if IndexChar = 'C' then
+        begin
+          Inc(Index_C);
+        end;
+
+        if WorkTreeChar = 'M' then
+        begin
+          Inc(WorkTree_M);
+        end
+        else if WorkTreeChar = 'D' then
+        begin
+          Inc(WorkTree_D);
+        end
+        else if WorkTreeChar = 'R' then
+        begin
+          Inc(WorkTree_R);
+        end
+        else if WorkTreeChar = 'C' then
+        begin
+          Inc(WorkTree_C);
+        end
+      end;
+    end;
+
+    if Index_M > 0 then
+    begin
+      AIndex := AIndex + 'M:' + IntToStr(Index_M) + ' ';
+    end;
+    if Index_A > 0 then
+    begin
+      AIndex := AIndex + 'A:' + IntToStr(Index_A) + ' ';
+    end;
+    if Index_R > 0 then
+    begin
+      AIndex := AIndex + 'R:' + IntToStr(Index_R) + ' ';
+    end;
+    if Index_D > 0 then
+    begin
+      AIndex := AIndex + 'D:' + IntToStr(Index_D) + ' ';
+    end;
+    if Index_C > 0 then
+    begin
+      AIndex := AIndex + 'C:' + IntToStr(Index_C) + ' ';
+    end;
+
+    if WorkTree_M > 0 then
+    begin
+      AWorkTree := AWorkTree + 'M:' + IntToStr(WorkTree_M) + ' ';
+    end;
+    if WorkTree_D > 0 then
+    begin
+      AWorkTree := AWorkTree + 'D:' + IntToStr(WorkTree_D) + ' ';
+    end;
+    if WorkTree_R > 0 then
+    begin
+      AWorkTree := AWorkTree + 'R:' + IntToStr(WorkTree_R) + ' ';
+    end;
+    if WorkTree_C > 0 then
+    begin
+      AWorkTree := AWorkTree + 'C:' + IntToStr(WorkTree_C) + ' ';
+    end;
+  finally
+    StringList.Free;
+  end;
 end;
 
 end.

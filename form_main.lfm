@@ -30,6 +30,12 @@ object FormMain: TFormMain
       item
         Caption = 'Cur Branch'
         Width = 100
+      end    
+      item
+        Caption = 'Index'
+      end    
+      item
+        Caption = 'Work Tree'
       end>
     ReadOnly = True
     RowSelect = True
