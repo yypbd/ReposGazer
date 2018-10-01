@@ -1,4 +1,4 @@
-program GitFinder;
+program ReposGazer;
 
 {$mode objfpc}{$H+}
 
