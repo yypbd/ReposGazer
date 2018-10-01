@@ -27,9 +27,15 @@ type
     TabSheet4: TTabSheet;
     procedure ButtonReadProjectsClick(Sender: TObject);
     procedure ButtonRefreshClick(Sender: TObject);
+    procedure ListViewRepoColumnClick(Sender: TObject; Column: TListColumn);
+    procedure ListViewRepoCompare(Sender: TObject; Item1, Item2: TListItem;
+      Data: Integer; var Compare: Integer);
     procedure ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
   private
+    FColumnToSort: Integer;
+    FAsc: Boolean;
+
     procedure SearchDirectory(const APath: string);
     procedure RefreshRepoInfos;
     procedure RefreshRepoInfo(AListItem: TListItem);
@@ -75,6 +81,28 @@ end;
 procedure TFormMain.ButtonRefreshClick(Sender: TObject);
 begin
   RefreshRepoInfos;
+end;
+
+procedure TFormMain.ListViewRepoColumnClick(Sender: TObject; Column: TListColumn
+  );
+begin
+  FColumnToSort := Column.Index;
+  FAsc := not FAsc;
+  (Sender as TListView).AlphaSort;
+end;
+
+procedure TFormMain.ListViewRepoCompare(Sender: TObject; Item1,
+  Item2: TListItem; Data: Integer; var Compare: Integer);
+begin
+  case FColumnToSort of
+    0:  Compare := CompareText(Item1.Caption, Item2.Caption);
+    else Compare := CompareText(Item1.SubItems[FColumnToSort - 1], Item2.SubItems[FColumnToSort - 1]);
+  end;
+
+  if FAsc then
+  begin
+    Compare := Compare * -1;
+  end;
 end;
 
 procedure TFormMain.ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
@@ -232,9 +260,10 @@ end;
 procedure TFormMain.DoCreate;
 begin
   Caption := Application.Title;
-
-  PageControlInfo.ActivePageIndex := 0;
   DoubleBuffered := True;
+  PageControlInfo.ActivePageIndex := 0;
+
+  FAsc := False;
 end;
 
 procedure TFormMain.DoDestroy;

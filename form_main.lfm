@@ -41,6 +41,8 @@ object FormMain: TFormMain
     RowSelect = True
     TabOrder = 0
     ViewStyle = vsReport
+    OnColumnClick = ListViewRepoColumnClick
+    OnCompare = ListViewRepoCompare
     OnSelectItem = ListViewRepoSelectItem
   end
   object PanelTop: TPanel
