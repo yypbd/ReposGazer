@@ -18,6 +18,8 @@ type
     MemoStatus: TMemo;
     MemoRemote: TMemo;
     MemoBranch: TMemo;
+    MenuItemSep01: TMenuItem;
+    MenuItemOpenRemote: TMenuItem;
     MenuItemCopyPath: TMenuItem;
     MenuItemCopyRemote: TMenuItem;
     PageControlInfo: TPageControl;
@@ -40,6 +42,7 @@ type
       Selected: Boolean);
     procedure MenuItemCopyPathClick(Sender: TObject);
     procedure MenuItemCopyRemoteClick(Sender: TObject);
+    procedure MenuItemOpenRemoteClick(Sender: TObject);
     procedure PopupMenuRepoPopup(Sender: TObject);
   private
     FColumnToSort: Integer;
@@ -68,7 +71,7 @@ var
 implementation
 
 uses
-  Clipbrd,
+  Clipbrd, lclintf,
   util_git;
 
 {$R *.lfm}
@@ -135,16 +138,29 @@ begin
   Clipboard.AsText := ListViewRepo.Selected.SubItems[1];
 end;
 
+procedure TFormMain.MenuItemOpenRemoteClick(Sender: TObject);
+var
+  Url: string;
+begin
+  Url := ListViewRepo.Selected.SubItems[1];
+
+  OpenURL(Url);
+end;
+
 procedure TFormMain.PopupMenuRepoPopup(Sender: TObject);
 begin
   MenuItemCopyPath.Enabled := False;
   MenuItemCopyRemote.Enabled := False;
+  MenuItemOpenRemote.Enabled := False;
 
   if ListViewRepo.Selected = nil then
     Exit;
 
-  MenuItemCopyPath.Enabled := True;
+  if ListViewRepo.Selected.SubItems[0] <> '' then
+    MenuItemCopyPath.Enabled := True;
+
   MenuItemCopyRemote.Enabled := ListViewRepo.Selected.SubItems[1] <> '';
+  MenuItemOpenRemote.Enabled := (ListViewRepo.Selected.SubItems[1] <> '') and (LowerCase(Copy(ListViewRepo.Selected.SubItems[1], 1, 4)) = 'http');
 end;
 
 procedure TFormMain.SearchDirectory(const APath: string);

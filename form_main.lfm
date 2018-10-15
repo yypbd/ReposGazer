@@ -193,5 +193,12 @@ object FormMain: TFormMain
       Caption = 'Copy remote'
       OnClick = MenuItemCopyRemoteClick
     end
+    object MenuItemSep01: TMenuItem
+      Caption = '-'
+    end
+    object MenuItemOpenRemote: TMenuItem
+      Caption = 'Open remote'
+      OnClick = MenuItemOpenRemoteClick
+    end
   end
 end
