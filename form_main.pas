@@ -19,7 +19,10 @@ type
     MemoRemote: TMemo;
     MemoBranch: TMemo;
     PageControlInfo: TPageControl;
+    PanelStatus: TPanel;
+    PanelStatusProgress: TPanel;
     PanelTop: TPanel;
+    ProgressBar: TProgressBar;
     SplitterMain: TSplitter;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
@@ -38,6 +41,7 @@ type
 
     procedure SearchDirectory(const APath: string);
     procedure RefreshRepoInfos;
+    procedure RefreshSelectedRepoInfos;
     procedure RefreshRepoInfo(AListItem: TListItem);
 
     procedure ShowInfo(Item: TListItem);
@@ -80,7 +84,7 @@ end;
 
 procedure TFormMain.ButtonRefreshClick(Sender: TObject);
 begin
-  RefreshRepoInfos;
+  RefreshSelectedRepoInfos;
 end;
 
 procedure TFormMain.ListViewRepoColumnClick(Sender: TObject; Column: TListColumn
@@ -159,9 +163,46 @@ procedure TFormMain.RefreshRepoInfos;
 var
   I: Integer;
 begin
-  for I := 0 to ListViewRepo.Items.Count - 1 do
-  begin
-    RefreshRepoInfo(ListViewRepo.Items[I]);
+  Enabled := False;
+  try
+    ProgressBar.Position := 0;
+    ProgressBar.Max := ListViewRepo.Items.Count;
+
+    for I := 0 to ListViewRepo.Items.Count - 1 do
+    begin
+      RefreshRepoInfo(ListViewRepo.Items[I]);
+      ProgressBar.Position := I + 1;
+      Application.ProcessMessages;
+    end;
+  finally
+    Enabled := True;
+  end;
+end;
+
+procedure TFormMain.RefreshSelectedRepoInfos;
+var
+  I: Integer;
+begin
+  Enabled := False;
+  try
+    if ListViewRepo.SelCount > 0 then
+    begin
+      ProgressBar.Position := 0;
+      ProgressBar.Max := ListViewRepo.SelCount;
+
+      for I := 0 to ListViewRepo.Items.Count - 1 do
+      begin
+        if ListViewRepo.Items[I].Selected then
+        begin
+          RefreshRepoInfo(ListViewRepo.Items[I]);
+          ProgressBar.Position := ProgressBar.Position + 1;
+          Application.ProcessMessages;
+        end;
+      end;
+    end;
+
+  finally
+    Enabled := True;
   end;
 end;
 
