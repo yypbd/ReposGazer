@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, ExtCtrls;
+  ComCtrls, ExtCtrls, Menus;
 
 type
   { TFormMain }
@@ -18,10 +18,13 @@ type
     MemoStatus: TMemo;
     MemoRemote: TMemo;
     MemoBranch: TMemo;
+    MenuItemCopyPath: TMenuItem;
+    MenuItemCopyRemote: TMenuItem;
     PageControlInfo: TPageControl;
     PanelStatus: TPanel;
     PanelStatusProgress: TPanel;
     PanelTop: TPanel;
+    PopupMenuRepo: TPopupMenu;
     ProgressBar: TProgressBar;
     SplitterMain: TSplitter;
     TabSheet1: TTabSheet;
@@ -35,6 +38,9 @@ type
       Data: Integer; var Compare: Integer);
     procedure ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
+    procedure MenuItemCopyPathClick(Sender: TObject);
+    procedure MenuItemCopyRemoteClick(Sender: TObject);
+    procedure PopupMenuRepoPopup(Sender: TObject);
   private
     FColumnToSort: Integer;
     FAsc: Boolean;
@@ -62,6 +68,7 @@ var
 implementation
 
 uses
+  Clipbrd,
   util_git;
 
 {$R *.lfm}
@@ -116,6 +123,28 @@ begin
   begin
     ShowInfo(Item);
   end;
+end;
+
+procedure TFormMain.MenuItemCopyPathClick(Sender: TObject);
+begin
+  Clipboard.AsText := ListViewRepo.Selected.SubItems[0];
+end;
+
+procedure TFormMain.MenuItemCopyRemoteClick(Sender: TObject);
+begin
+  Clipboard.AsText := ListViewRepo.Selected.SubItems[1];
+end;
+
+procedure TFormMain.PopupMenuRepoPopup(Sender: TObject);
+begin
+  MenuItemCopyPath.Enabled := False;
+  MenuItemCopyRemote.Enabled := False;
+
+  if ListViewRepo.Selected = nil then
+    Exit;
+
+  MenuItemCopyPath.Enabled := True;
+  MenuItemCopyRemote.Enabled := ListViewRepo.Selected.SubItems[1] <> '';
 end;
 
 procedure TFormMain.SearchDirectory(const APath: string);

@@ -39,6 +39,7 @@ object FormMain: TFormMain
       end>
     HideSelection = False
     MultiSelect = True
+    PopupMenu = PopupMenuRepo
     ReadOnly = True
     RowSelect = True
     TabOrder = 0
@@ -178,6 +179,19 @@ object FormMain: TFormMain
         Align = alClient
         TabOrder = 0
       end
+    end
+  end
+  object PopupMenuRepo: TPopupMenu
+    OnPopup = PopupMenuRepoPopup
+    left = 648
+    top = 156
+    object MenuItemCopyPath: TMenuItem
+      Caption = 'Copy path'
+      OnClick = MenuItemCopyPathClick
+    end
+    object MenuItemCopyRemote: TMenuItem
+      Caption = 'Copy remote'
+      OnClick = MenuItemCopyRemoteClick
     end
   end
 end
