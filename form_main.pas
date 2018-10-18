@@ -11,6 +11,9 @@ uses
 type
   { TFormMain }
   TFormMain = class(TForm)
+    ButtonGitignoreReload: TButton;
+    ButtonGitignoreSave: TButton;
+    ButtonShowGithubGitignore: TButton;
     ButtonReadProjects: TButton;
     ButtonRefresh: TButton;
     ListViewRepo: TListView;
@@ -18,11 +21,13 @@ type
     MemoStatus: TMemo;
     MemoRemote: TMemo;
     MemoBranch: TMemo;
+    MemoGitignore: TMemo;
     MenuItemSep01: TMenuItem;
     MenuItemOpenRemote: TMenuItem;
     MenuItemCopyPath: TMenuItem;
     MenuItemCopyRemote: TMenuItem;
     PageControlInfo: TPageControl;
+    PanelGitignoreButtons: TPanel;
     PanelStatus: TPanel;
     PanelStatusProgress: TPanel;
     PanelTop: TPanel;
@@ -33,8 +38,12 @@ type
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
+    procedure ButtonGitignoreReloadClick(Sender: TObject);
+    procedure ButtonGitignoreSaveClick(Sender: TObject);
     procedure ButtonReadProjectsClick(Sender: TObject);
     procedure ButtonRefreshClick(Sender: TObject);
+    procedure ButtonShowGithubGitignoreClick(Sender: TObject);
     procedure ListViewRepoColumnClick(Sender: TObject; Column: TListColumn);
     procedure ListViewRepoCompare(Sender: TObject; Item1, Item2: TListItem;
       Data: Integer; var Compare: Integer);
@@ -58,6 +67,7 @@ type
     procedure ShowRemoteInfo(Item: TListItem);
     procedure ShowBranchInfo(Item: TListItem);
     procedure ShowStatusInfo(Item: TListItem);
+    procedure ShowGitignoreInfo(Item: TListItem);
   protected
     procedure DoCreate; override;
     procedure DoDestroy; override;
@@ -92,9 +102,45 @@ begin
   end;
 end;
 
+procedure TFormMain.ButtonGitignoreReloadClick(Sender: TObject);
+begin
+  if ListViewRepo.Selected = nil then
+    Exit;
+
+  ShowGitignoreInfo(ListViewRepo.Selected);
+end;
+
+procedure TFormMain.ButtonGitignoreSaveClick(Sender: TObject);
+var
+  FileName: string;
+begin
+  if ListViewRepo.Selected = nil then
+    Exit;
+
+  FileName := ListViewRepo.Selected.SubItems[0] + PathDelim + '.gitignore';
+
+  if FileExists(FileName) then
+  begin
+    if MessageDlg('Save .gitignore', 'Overwrite .gitignore?', mtConfirmation, [mbYes, mbNo], 0, mbYes) <> mrYes then
+    begin
+      Exit;
+    end;
+  end;
+
+  MemoGitignore.Lines.SaveToFile(FileName);
+end;
+
 procedure TFormMain.ButtonRefreshClick(Sender: TObject);
 begin
   RefreshSelectedRepoInfos;
+end;
+
+procedure TFormMain.ButtonShowGithubGitignoreClick(Sender: TObject);
+var
+  Url: string;
+begin
+  Url := 'https://github.com/github/gitignore';
+  OpenURL(Url);
 end;
 
 procedure TFormMain.ListViewRepoColumnClick(Sender: TObject; Column: TListColumn
@@ -283,6 +329,7 @@ begin
   ShowRemoteInfo(Item);
   ShowBranchInfo(Item);
   ShowStatusInfo(Item);
+  ShowGitignoreInfo(Item);
 end;
 
 procedure TFormMain.ShowBasicInfo(Item: TListItem);
@@ -340,6 +387,19 @@ begin
     MemoStatus.Lines.Add('---------------');
     MemoStatus.Lines.Add('');
     MemoStatus.Lines.Add(Output);
+  end;
+end;
+
+procedure TFormMain.ShowGitignoreInfo(Item: TListItem);
+var
+  FileName: string;
+begin
+  MemoGitignore.Lines.Clear;
+
+  FileName := Item.SubItems[0] + PathDelim + '.gitignore';
+  if FileExists(FileName) then
+  begin
+    MemoGitignore.Lines.LoadFromFile(FileName);
   end;
 end;
 
