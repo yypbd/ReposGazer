@@ -33,9 +33,11 @@ object FormMain: TFormMain
       end    
       item
         Caption = 'Index'
+        Width = 80
       end    
       item
         Caption = 'Work Tree'
+        Width = 80
       end>
     HideSelection = False
     MultiSelect = True

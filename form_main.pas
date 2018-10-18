@@ -171,6 +171,14 @@ begin
   if Selected and (Item <> nil) then
   begin
     ShowInfo(Item);
+    ButtonGitignoreReload.Enabled := True;
+    ButtonGitignoreSave.Enabled := True;
+  end
+  else
+  begin
+    ShowInfo(nil);
+    ButtonGitignoreReload.Enabled := False;
+    ButtonGitignoreSave.Enabled := False;
   end;
 end;
 
@@ -335,6 +343,9 @@ end;
 procedure TFormMain.ShowBasicInfo(Item: TListItem);
 begin
   MemoBasicInfo.Lines.Clear;
+  if Item = nil then
+    Exit;
+
   MemoBasicInfo.Lines.Add('== Path ==');
   MemoBasicInfo.Lines.Add(Item.SubItems[0]);
   MemoBasicInfo.Lines.Add('');
@@ -347,6 +358,9 @@ var
   Output: string;
 begin
   MemoRemote.Lines.Clear;
+  if Item = nil then
+    Exit;
+
   Output := Item.SubItems[11];
   Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
   if Output <> '' then
@@ -363,6 +377,9 @@ var
   Output: string;
 begin
   MemoBranch.Lines.Clear;
+  if Item = nil then
+    Exit;
+
   Output := Item.SubItems[12];
   Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
   if Output <> '' then
@@ -379,6 +396,9 @@ var
   Output: string;
 begin
   MemoStatus.Lines.Clear;
+  if Item = nil then
+    Exit;
+
   Output := Item.SubItems[13];
   Output := StringReplace(Output, #10, LineEnding, [rfReplaceAll]);
   if Output <> '' then
@@ -395,6 +415,8 @@ var
   FileName: string;
 begin
   MemoGitignore.Lines.Clear;
+  if Item = nil then
+    Exit;
 
   FileName := Item.SubItems[0] + PathDelim + '.gitignore';
   if FileExists(FileName) then
