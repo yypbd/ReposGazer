@@ -13,6 +13,11 @@ Git Repositories Gazer
 1. Click Read button.
 2. Select repositories directory.
 
+
+## Screenshot
+
+![Windows Version](/screenshot/win_v1.0.0.0.png?raw=true "Windows Version")
+
 ## History
 
 
