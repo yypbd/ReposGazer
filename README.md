@@ -13,7 +13,14 @@ Available for Windows, macOS, and Linux.
 
 ## Screenshot
 
+### Windows
+
 ![Windows Version](/screenshot/win_v1.0.0.0.png?raw=true "Windows Version")
+
+
+### macOS
+
+![macOS Version](/screenshot/macos_v1.0.0.0.png?raw=true "macOS Version")
 
 
 ## Build
