@@ -7,7 +7,7 @@ object FormMain: TFormMain
   ClientHeight = 771
   ClientWidth = 973
   Position = poScreenCenter
-  LCLVersion = '1.8.2.0'
+  LCLVersion = '2.2.0.4'
   object ListViewRepo: TListView
     Left = 0
     Height = 481
@@ -98,13 +98,13 @@ object FormMain: TFormMain
     TabOrder = 3
     object TabSheet1: TTabSheet
       Caption = 'Basic Info'
-      ClientHeight = 172
-      ClientWidth = 965
+      ClientHeight = 170
+      ClientWidth = 967
       object MemoBasicInfo: TMemo
         Left = 0
-        Height = 172
+        Height = 170
         Top = 0
-        Width = 965
+        Width = 967
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -113,13 +113,13 @@ object FormMain: TFormMain
     end
     object TabSheet2: TTabSheet
       Caption = 'Remote'
-      ClientHeight = 172
-      ClientWidth = 965
+      ClientHeight = 170
+      ClientWidth = 967
       object MemoRemote: TMemo
         Left = 0
-        Height = 172
+        Height = 170
         Top = 0
-        Width = 965
+        Width = 967
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -128,13 +128,13 @@ object FormMain: TFormMain
     end
     object TabSheet3: TTabSheet
       Caption = 'Branch'
-      ClientHeight = 172
-      ClientWidth = 965
+      ClientHeight = 170
+      ClientWidth = 967
       object MemoBranch: TMemo
         Left = 0
-        Height = 172
+        Height = 170
         Top = 0
-        Width = 965
+        Width = 967
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -143,13 +143,13 @@ object FormMain: TFormMain
     end
     object TabSheet4: TTabSheet
       Caption = 'Status'
-      ClientHeight = 172
-      ClientWidth = 965
+      ClientHeight = 170
+      ClientWidth = 967
       object MemoStatus: TMemo
         Left = 0
-        Height = 172
+        Height = 170
         Top = 0
-        Width = 965
+        Width = 967
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -158,24 +158,24 @@ object FormMain: TFormMain
     end
     object TabSheet5: TTabSheet
       Caption = 'gitignore'
-      ClientHeight = 172
-      ClientWidth = 965
+      ClientHeight = 170
+      ClientWidth = 967
       object MemoGitignore: TMemo
         Left = 0
-        Height = 172
+        Height = 170
         Top = 0
-        Width = 808
+        Width = 810
         Align = alClient
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
       object PanelGitignoreButtons: TPanel
-        Left = 808
-        Height = 172
+        Left = 810
+        Height = 170
         Top = 0
         Width = 157
         Align = alRight
-        ClientHeight = 172
+        ClientHeight = 170
         ClientWidth = 157
         TabOrder = 1
         object ButtonGitignoreReload: TButton
@@ -240,8 +240,8 @@ object FormMain: TFormMain
   end
   object PopupMenuRepo: TPopupMenu
     OnPopup = PopupMenuRepoPopup
-    left = 648
-    top = 156
+    Left = 648
+    Top = 156
     object MenuItemCopyPath: TMenuItem
       Caption = 'Copy path'
       OnClick = MenuItemCopyPathClick

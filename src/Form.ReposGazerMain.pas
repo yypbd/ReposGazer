@@ -1,4 +1,4 @@
-unit form_main;
+unit Form.ReposGazerMain;
 
 {$mode objfpc}{$H+}
 
@@ -82,7 +82,7 @@ implementation
 
 uses
   Clipbrd, lclintf,
-  util_git;
+  Util.Git;
 
 {$R *.lfm}
 

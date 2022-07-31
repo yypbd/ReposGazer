@@ -1,4 +1,4 @@
-unit process_addon;
+unit Util.ProcessAddon;
 
 {$mode objfpc}{$H+}
 

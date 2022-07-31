@@ -1,4 +1,4 @@
-unit util_git;
+unit Util.Git;
 
 {$mode objfpc}{$H+}
 
@@ -21,7 +21,7 @@ uses
 implementation
 
 uses
-  process_addon;
+  Util.ProcessAddon;
 
 function ExistsDotGit(AFileList: TStringList): Boolean;
 const

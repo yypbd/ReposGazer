@@ -71,18 +71,18 @@
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="form_main.pas"/>
+        <Filename Value="Form.ReposGazerMain.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
       <Unit2>
-        <Filename Value="process_addon.pas"/>
+        <Filename Value="Util.ProcessAddon.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="util_git.pas"/>
+        <Filename Value="Util.Git.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
     </Units>
