@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="ReposGazer"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -22,11 +24,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin/release/ReposGazer"/>
+            <Filename Value="..\bin\$(TargetCPU)-$(TargetOS)\ReposGazer"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\release"/>
+            <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)\release"/>
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -37,6 +39,7 @@
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
             </Debugging>
             <LinkSmart Value="True"/>
             <Options>
@@ -52,9 +55,10 @@
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="1">
       <Item1>
@@ -87,11 +91,11 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="bin/debug/ReposGazer"/>
+      <Filename Value="..\bin\$(TargetCPU)-$(TargetOS)\ReposGazer_debug"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\debug"/>
+      <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)\debug"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
