@@ -7,7 +7,7 @@ object FormMain: TFormMain
   ClientHeight = 771
   ClientWidth = 973
   Position = poScreenCenter
-  LCLVersion = '2.2.0.4'
+  LCLVersion = '2.2.2.0'
   object ListViewRepo: TListView
     Left = 0
     Height = 481
@@ -16,28 +16,31 @@ object FormMain: TFormMain
     Align = alClient
     Columns = <    
       item
+        AutoSize = True
         Caption = 'Repo'
         Width = 120
       end    
       item
-        Caption = 'Real Path'
+        AutoSize = True
+        Caption = 'Local Path'
         Width = 250
       end    
       item
+        AutoSize = True
         Caption = 'Remote'
         Width = 250
       end    
       item
-        Caption = 'Cur Branch'
-        Width = 100
+        Caption = 'Selected Branch'
+        Width = 110
       end    
       item
         Caption = 'Index'
-        Width = 80
+        Width = 110
       end    
       item
         Caption = 'Work Tree'
-        Width = 80
+        Width = 110
       end>
     HideSelection = False
     MultiSelect = True
