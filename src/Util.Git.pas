@@ -145,8 +145,9 @@ var
   I: Integer;
 
   IndexChar, WorkTreeChar: Char;
-  Index_M, Index_A, Index_D, Index_R, Index_C: Integer;
-  WorkTree_M, WorkTree_D, WorkTree_R, WorkTree_C: Integer;
+  Index_M, Index_T, Index_A, Index_D, Index_R, Index_C: Integer;
+  WorkTree_M, WorkTree_T, WorkTree_D, WorkTree_R, WorkTree_C: Integer;
+  Untracked: Integer;
 begin
   AIndex := '';
   AWorkTree := '';
@@ -159,15 +160,19 @@ begin
     StringList.DelimitedText := AOutput;
 
     Index_M := 0;
+    Index_T := 0;
     Index_A := 0;
     Index_D := 0;
     Index_R := 0;
     Index_C := 0;
 
     WorkTree_M := 0;
+    WorkTree_T := 0;
     WorkTree_D := 0;
     WorkTree_R := 0;
     WorkTree_C := 0;
+
+    Untracked := 0;
 
     for I := 0 to StringList.Count - 1 do
     begin
@@ -180,6 +185,10 @@ begin
         if IndexChar = 'M' then
         begin
           Inc(Index_M);
+        end
+        else if IndexChar = 'T' then
+        begin
+          Inc(Index_T);
         end
         else if IndexChar = 'A' then
         begin
@@ -202,6 +211,10 @@ begin
         begin
           Inc(WorkTree_M);
         end
+        else if WorkTreeChar = 'T' then
+        begin
+          Inc(WorkTree_T);
+        end
         else if WorkTreeChar = 'D' then
         begin
           Inc(WorkTree_D);
@@ -213,13 +226,22 @@ begin
         else if WorkTreeChar = 'C' then
         begin
           Inc(WorkTree_C);
-        end
+        end;
+
+        if (IndexChar = '?') and (WorkTreeChar = '?') then
+        begin
+          Inc(Untracked);
+        end;
       end;
     end;
 
     if Index_M > 0 then
     begin
       AIndex := AIndex + 'M:' + IntToStr(Index_M) + ' ';
+    end;
+    if Index_T > 0 then
+    begin
+      AIndex := AIndex + 'T:' + IntToStr(Index_T) + ' ';
     end;
     if Index_A > 0 then
     begin
@@ -242,6 +264,10 @@ begin
     begin
       AWorkTree := AWorkTree + 'M:' + IntToStr(WorkTree_M) + ' ';
     end;
+    if WorkTree_T > 0 then
+    begin
+      AWorkTree := AWorkTree + 'T:' + IntToStr(WorkTree_T) + ' ';
+    end;
     if WorkTree_D > 0 then
     begin
       AWorkTree := AWorkTree + 'D:' + IntToStr(WorkTree_D) + ' ';
@@ -254,6 +280,14 @@ begin
     begin
       AWorkTree := AWorkTree + 'C:' + IntToStr(WorkTree_C) + ' ';
     end;
+
+    if Untracked > 0 then
+    begin
+      AWorkTree := AWorkTree + '?:' + IntToStr(Untracked) + ' ';
+    end;
+
+    AIndex := Trim(AIndex);
+    AWorkTree := Trim(AWorkTree);
   finally
     StringList.Free;
   end;
