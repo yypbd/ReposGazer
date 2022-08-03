@@ -10,18 +10,15 @@ Available for Windows, macOS, and Linux.
 2. Remote repository, branch, status can be checked immediately
 3. gitignore editing function
 
-
 ## Screenshot
 
 ### Windows
 
 ![Windows Version](/screenshot/win_v1.0.0.0.png?raw=true "Windows Version")
 
-
 ### macOS
 
 ![macOS Version](/screenshot/macos_v1.0.0.0.png?raw=true "macOS Version")
-
 
 ## Build
 
@@ -29,18 +26,17 @@ Available for Windows, macOS, and Linux.
 2. Clone this & Build
 3. Run
 
-
 ## Usage
 
 1. Click Read button.
 2. Select git repositories directory.
 
-
 ## History
 
+- 2022-08-02 : v1.0.0.0
+- 2018-09-19 : initial project
 
 ## Credits
-
 
 ## License
 
