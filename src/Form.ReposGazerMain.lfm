@@ -1,52 +1,55 @@
 object FormMain: TFormMain
   Left = 266
-  Height = 771
+  Height = 1156
   Top = 134
-  Width = 973
+  Width = 1460
   Caption = 'FormMain'
-  ClientHeight = 771
-  ClientWidth = 973
+  ClientHeight = 1156
+  ClientWidth = 1460
+  DesignTimePPI = 144
   Position = poScreenCenter
-  LCLVersion = '2.2.2.0'
+  LCLVersion = '3.2.0.0'
   object ListViewRepo: TListView
     Left = 0
-    Height = 481
-    Top = 58
-    Width = 973
+    Height = 721
+    Top = 87
+    Width = 1460
     Align = alClient
+    AutoSortIndicator = True
     Columns = <    
       item
         AutoSize = True
         Caption = 'Repo'
-        Width = 120
+        Width = 60
       end    
       item
         AutoSize = True
         Caption = 'Local Path'
-        Width = 250
+        Width = 103
       end    
       item
         AutoSize = True
         Caption = 'Remote'
-        Width = 250
+        Width = 80
       end    
       item
         Caption = 'Selected Branch'
-        Width = 110
+        Width = 165
       end    
       item
         Caption = 'Index'
-        Width = 110
+        Width = 165
       end    
       item
         Caption = 'Work Tree'
-        Width = 110
+        Width = 101
       end>
     HideSelection = False
     MultiSelect = True
     PopupMenu = PopupMenuRepo
     ReadOnly = True
     RowSelect = True
+    SortType = stText
     TabOrder = 0
     ViewStyle = vsReport
     OnColumnClick = ListViewRepoColumnClick
@@ -55,59 +58,59 @@ object FormMain: TFormMain
   end
   object PanelTop: TPanel
     Left = 0
-    Height = 58
+    Height = 87
     Top = 0
-    Width = 973
+    Width = 1460
     Align = alTop
-    ClientHeight = 58
-    ClientWidth = 973
+    ClientHeight = 87
+    ClientWidth = 1460
     TabOrder = 1
     object ButtonReadProjects: TButton
-      Left = 16
-      Height = 33
-      Top = 12
-      Width = 148
+      Left = 24
+      Height = 50
+      Top = 18
+      Width = 222
       Caption = 'Read Projects Dir'
-      OnClick = ButtonReadProjectsClick
       TabOrder = 0
+      OnClick = ButtonReadProjectsClick
     end
     object ButtonRefresh: TButton
-      Left = 176
-      Height = 33
-      Top = 12
-      Width = 148
+      Left = 264
+      Height = 50
+      Top = 18
+      Width = 222
       Caption = 'Refresh selected repo'
-      OnClick = ButtonRefreshClick
       TabOrder = 1
+      OnClick = ButtonRefreshClick
     end
   end
   object SplitterMain: TSplitter
     Cursor = crVSplit
     Left = 0
-    Height = 5
-    Top = 539
-    Width = 973
+    Height = 8
+    Top = 808
+    Width = 1460
     Align = alBottom
     ResizeAnchor = akBottom
   end
   object PageControlInfo: TPageControl
     Left = 0
-    Height = 200
-    Top = 544
-    Width = 973
+    Height = 300
+    Top = 816
+    Width = 1460
     ActivePage = TabSheet5
     Align = alBottom
     TabIndex = 4
     TabOrder = 3
     object TabSheet1: TTabSheet
       Caption = 'Basic Info'
-      ClientHeight = 170
-      ClientWidth = 967
+      ClientHeight = 262
+      ClientWidth = 1452
       object MemoBasicInfo: TMemo
         Left = 0
-        Height = 170
+        Height = 262
         Top = 0
-        Width = 967
+        Width = 1452
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -116,13 +119,13 @@ object FormMain: TFormMain
     end
     object TabSheet2: TTabSheet
       Caption = 'Remote'
-      ClientHeight = 170
-      ClientWidth = 967
+      ClientHeight = 262
+      ClientWidth = 1452
       object MemoRemote: TMemo
         Left = 0
-        Height = 170
+        Height = 262
         Top = 0
-        Width = 967
+        Width = 1452
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -131,13 +134,13 @@ object FormMain: TFormMain
     end
     object TabSheet3: TTabSheet
       Caption = 'Branch'
-      ClientHeight = 170
-      ClientWidth = 967
+      ClientHeight = 262
+      ClientWidth = 1452
       object MemoBranch: TMemo
         Left = 0
-        Height = 170
+        Height = 262
         Top = 0
-        Width = 967
+        Width = 1452
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -146,13 +149,13 @@ object FormMain: TFormMain
     end
     object TabSheet4: TTabSheet
       Caption = 'Status'
-      ClientHeight = 170
-      ClientWidth = 967
+      ClientHeight = 262
+      ClientWidth = 1452
       object MemoStatus: TMemo
         Left = 0
-        Height = 170
+        Height = 262
         Top = 0
-        Width = 967
+        Width = 1452
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -161,81 +164,81 @@ object FormMain: TFormMain
     end
     object TabSheet5: TTabSheet
       Caption = 'gitignore'
-      ClientHeight = 170
-      ClientWidth = 967
+      ClientHeight = 262
+      ClientWidth = 1452
       object MemoGitignore: TMemo
         Left = 0
-        Height = 170
+        Height = 262
         Top = 0
-        Width = 810
+        Width = 1216
         Align = alClient
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
       object PanelGitignoreButtons: TPanel
-        Left = 810
-        Height = 170
+        Left = 1216
+        Height = 262
         Top = 0
-        Width = 157
+        Width = 236
         Align = alRight
-        ClientHeight = 170
-        ClientWidth = 157
+        ClientHeight = 262
+        ClientWidth = 236
         TabOrder = 1
         object ButtonGitignoreReload: TButton
-          Left = 20
-          Height = 30
-          Top = 16
-          Width = 115
+          Left = 30
+          Height = 45
+          Top = 24
+          Width = 172
           Caption = 'Reload'
-          OnClick = ButtonGitignoreReloadClick
           TabOrder = 0
+          OnClick = ButtonGitignoreReloadClick
         end
         object ButtonGitignoreSave: TButton
-          Left = 20
-          Height = 30
-          Top = 68
-          Width = 115
+          Left = 30
+          Height = 45
+          Top = 102
+          Width = 172
           Caption = 'Save'
-          OnClick = ButtonGitignoreSaveClick
           TabOrder = 1
+          OnClick = ButtonGitignoreSaveClick
         end
         object ButtonShowGithubGitignore: TButton
-          Left = 20
-          Height = 30
-          Top = 120
-          Width = 115
+          Left = 30
+          Height = 45
+          Top = 180
+          Width = 172
           Caption = 'Github''s Gitignore'
-          OnClick = ButtonShowGithubGitignoreClick
           TabOrder = 2
+          OnClick = ButtonShowGithubGitignoreClick
         end
       end
     end
   end
   object PanelStatus: TPanel
     Left = 0
-    Height = 27
-    Top = 744
-    Width = 973
+    Height = 40
+    Top = 1116
+    Width = 1460
     Align = alBottom
     BevelOuter = bvNone
-    ClientHeight = 27
-    ClientWidth = 973
+    ClientHeight = 40
+    ClientWidth = 1460
     TabOrder = 4
     object PanelStatusProgress: TPanel
       Left = 0
-      Height = 27
+      Height = 40
       Top = 0
-      Width = 280
+      Width = 420
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 27
-      ClientWidth = 280
+      ClientHeight = 40
+      ClientWidth = 420
       TabOrder = 0
       object ProgressBar: TProgressBar
         Left = 0
-        Height = 27
+        Height = 40
         Top = 0
-        Width = 280
+        Width = 420
         Align = alClient
         TabOrder = 0
       end
@@ -243,8 +246,8 @@ object FormMain: TFormMain
   end
   object PopupMenuRepo: TPopupMenu
     OnPopup = PopupMenuRepoPopup
-    Left = 648
-    Top = 156
+    Left = 972
+    Top = 234
     object MenuItemCopyPath: TMenuItem
       Caption = 'Copy path'
       OnClick = MenuItemCopyPathClick

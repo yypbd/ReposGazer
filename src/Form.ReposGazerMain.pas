@@ -55,7 +55,6 @@ type
     procedure PopupMenuRepoPopup(Sender: TObject);
   private
     FColumnToSort: Integer;
-    FAsc: Boolean;
 
     function GetVersion: string;
 
@@ -89,6 +88,9 @@ uses
 {$R *.lfm}
 
 { TFormMain }
+
+// TODO : Add menu
+// TODO : Adjust olumn size
 
 procedure TFormMain.ButtonReadProjectsClick(Sender: TObject);
 var
@@ -149,8 +151,6 @@ procedure TFormMain.ListViewRepoColumnClick(Sender: TObject; Column: TListColumn
   );
 begin
   FColumnToSort := Column.Index;
-  FAsc := not FAsc;
-  (Sender as TListView).AlphaSort;
 end;
 
 procedure TFormMain.ListViewRepoCompare(Sender: TObject; Item1,
@@ -161,7 +161,7 @@ begin
     else Compare := CompareText(Item1.SubItems[FColumnToSort - 1], Item2.SubItems[FColumnToSort - 1]);
   end;
 
-  if FAsc then
+  if ListViewRepo.SortDirection = sdDescending then
   begin
     Compare := Compare * -1;
   end;
@@ -446,8 +446,6 @@ begin
   Caption := Application.Title + ' v' + GetVersion;
   DoubleBuffered := True;
   PageControlInfo.ActivePageIndex := 0;
-
-  FAsc := False;
 end;
 
 procedure TFormMain.DoDestroy;
