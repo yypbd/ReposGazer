@@ -103,8 +103,6 @@ type
   private
     FColumnToSort: Integer;
 
-    function GetVersion: string;
-
     procedure SearchDirectory(const APath: string);
     procedure RefreshRepoInfos;
     procedure RefreshSelectedRepoInfos;
@@ -129,8 +127,8 @@ var
 implementation
 
 uses
-  Clipbrd, lclintf, fileinfo,
-  Util.Git;
+  Clipbrd, lclintf,
+  Util.Common, Util.Git;
 
 {$R *.lfm}
 
@@ -326,20 +324,6 @@ begin
 
   MenuItemPopupOpenLocalPath.Enabled := ListViewRepo.Selected.SubItems[1] <> '';
   MenuItemPopupCopyRemotePath.Enabled := (ListViewRepo.Selected.SubItems[1] <> '') and (LowerCase(Copy(ListViewRepo.Selected.SubItems[1], 1, 4)) = 'http');
-end;
-
-function TFormMain.GetVersion: string;
-var
-  Info: TFileVersionInfo;
-begin
-  Info := TFileVersionInfo.Create(nil);
-
-  try
-    Info.ReadFileInfo;
-    Result := Info.VersionStrings.Values['FileVersion'];
-  finally
-    Info.Free;
-  end;
 end;
 
 procedure TFormMain.SearchDirectory(const APath: string);
