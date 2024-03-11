@@ -6,53 +6,100 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, ExtCtrls, Menus;
+  ComCtrls, ExtCtrls, Menus, ActnList;
 
 type
   { TFormMain }
   TFormMain = class(TForm)
+    ActionViewRemote: TAction;
+    ActionViewBranch: TAction;
+    ActionViewStatus: TAction;
+    ActionViewGitignore: TAction;
+    ActionViewBasic: TAction;
+    ActionFileOpenRepos: TAction;
+    ActionFileRefresh: TAction;
+    ActionEditCopyLocalPath: TAction;
+    ActionEditOpenLocalPath: TAction;
+    ActionEditCopyRemotePath: TAction;
+    ActionEditOpenRemotePath: TAction;
+    ActionFileExit: TAction;
+    ActionListMain: TActionList;
     ButtonGitignoreReload: TButton;
     ButtonGitignoreSave: TButton;
     ButtonShowGithubGitignore: TButton;
-    ButtonReadProjects: TButton;
-    ButtonRefresh: TButton;
+    CoolBar1: TCoolBar;
     ListViewRepo: TListView;
+    MainMenuMain: TMainMenu;
     MemoBasicInfo: TMemo;
     MemoStatus: TMemo;
     MemoRemote: TMemo;
     MemoBranch: TMemo;
     MemoGitignore: TMemo;
+    MenuItemPopupOpenRemotePath: TMenuItem;
+    MenuItemAbout: TMenuItem;
+    MenuItemFileOpenRepos: TMenuItem;
+    MenuItemFileRefresh: TMenuItem;
+    MenuItemEditOpenLocalPath: TMenuItem;
+    MenuItemViewBasic: TMenuItem;
+    MenuItemViewRemote: TMenuItem;
+    MenuItemViewBranch: TMenuItem;
+    MenuItemViewStatus: TMenuItem;
+    MenuItemViewGitignore: TMenuItem;
+    MenuItemEditCopyLocalPath: TMenuItem;
+    MenuItemEditCopyRemotePath: TMenuItem;
+    SeparatorEdit1: TMenuItem;
+    MenuItemEditOpenRemotePath: TMenuItem;
+    MenuItemView: TMenuItem;
+    MenuItemFileExit: TMenuItem;
+    MenuItemFile: TMenuItem;
+    MenuItemEdit: TMenuItem;
     MenuItemSep01: TMenuItem;
-    MenuItemOpenRemote: TMenuItem;
-    MenuItemCopyPath: TMenuItem;
-    MenuItemCopyRemote: TMenuItem;
+    MenuItemPopupCopyRemotePath: TMenuItem;
+    MenuItemPopupCopyLocalPath: TMenuItem;
+    MenuItemPopupOpenLocalPath: TMenuItem;
     PageControlInfo: TPageControl;
     PanelGitignoreButtons: TPanel;
     PanelStatus: TPanel;
     PanelStatusProgress: TPanel;
-    PanelTop: TPanel;
-    PopupMenuRepo: TPopupMenu;
+    PopupMenuEdit: TPopupMenu;
     ProgressBar: TProgressBar;
+    SeparatorFile1: TMenuItem;
     SplitterMain: TSplitter;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
     TabSheet5: TTabSheet;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton9: TToolButton;
+    procedure ActionEditCopyLocalPathExecute(Sender: TObject);
+    procedure ActionEditCopyRemotePathExecute(Sender: TObject);
+    procedure ActionEditOpenLocalPathExecute(Sender: TObject);
+    procedure ActionEditOpenRemotePathExecute(Sender: TObject);
+    procedure ActionFileExitExecute(Sender: TObject);
+    procedure ActionFileOpenReposExecute(Sender: TObject);
+    procedure ActionFileRefreshExecute(Sender: TObject);
+    procedure ActionListMainUpdate(AAction: TBasicAction; var Handled: Boolean);
+    procedure ActionViewBasicExecute(Sender: TObject);
+    procedure ActionViewBranchExecute(Sender: TObject);
+    procedure ActionViewGitignoreExecute(Sender: TObject);
+    procedure ActionViewRemoteExecute(Sender: TObject);
+    procedure ActionViewStatusExecute(Sender: TObject);
     procedure ButtonGitignoreReloadClick(Sender: TObject);
     procedure ButtonGitignoreSaveClick(Sender: TObject);
-    procedure ButtonReadProjectsClick(Sender: TObject);
-    procedure ButtonRefreshClick(Sender: TObject);
     procedure ButtonShowGithubGitignoreClick(Sender: TObject);
     procedure ListViewRepoColumnClick(Sender: TObject; Column: TListColumn);
     procedure ListViewRepoCompare(Sender: TObject; Item1, Item2: TListItem;
       Data: Integer; var Compare: Integer);
     procedure ListViewRepoSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
-    procedure MenuItemCopyPathClick(Sender: TObject);
-    procedure MenuItemCopyRemoteClick(Sender: TObject);
-    procedure MenuItemOpenRemoteClick(Sender: TObject);
-    procedure PopupMenuRepoPopup(Sender: TObject);
+    procedure PopupMenuEditPopup(Sender: TObject);
   private
     FColumnToSort: Integer;
 
@@ -89,10 +136,19 @@ uses
 
 { TFormMain }
 
-// TODO : Add menu
-// TODO : Adjust olumn size
+// TODO : const to hidden data index
+// TODO : status bar
+// TODO : Toolbar
 
-procedure TFormMain.ButtonReadProjectsClick(Sender: TObject);
+procedure TFormMain.ButtonGitignoreReloadClick(Sender: TObject);
+begin
+  if ListViewRepo.Selected = nil then
+    Exit;
+
+  ShowGitignoreInfo(ListViewRepo.Selected);
+end;
+
+procedure TFormMain.ActionFileOpenReposExecute(Sender: TObject);
 var
   Directory: string;
 begin
@@ -106,12 +162,89 @@ begin
   end;
 end;
 
-procedure TFormMain.ButtonGitignoreReloadClick(Sender: TObject);
+procedure TFormMain.ActionFileExitExecute(Sender: TObject);
+begin
+  if MessageDlg(Application.Title, 'Exit?', mtConfirmation, [mbYes, mbNo], 0, mbYes) = mrYes then
+  begin
+    Application.Terminate;
+  end;
+end;
+
+procedure TFormMain.ActionEditCopyLocalPathExecute(Sender: TObject);
+begin
+  Clipboard.AsText := ListViewRepo.Selected.SubItems[0];
+end;
+
+procedure TFormMain.ActionEditCopyRemotePathExecute(Sender: TObject);
+begin
+  Clipboard.AsText := ListViewRepo.Selected.SubItems[1];
+end;
+
+procedure TFormMain.ActionEditOpenLocalPathExecute(Sender: TObject);
+begin
+  OpenDocument(ListViewRepo.Selected.SubItems[0]);
+end;
+
+procedure TFormMain.ActionEditOpenRemotePathExecute(Sender: TObject);
+var
+  Url: string;
+begin
+  Url := ListViewRepo.Selected.SubItems[1];
+
+  OpenURL(Url);
+end;
+
+procedure TFormMain.ActionFileRefreshExecute(Sender: TObject);
+begin
+  RefreshSelectedRepoInfos;
+end;
+
+procedure TFormMain.ActionListMainUpdate(AAction: TBasicAction;
+  var Handled: Boolean);
 begin
   if ListViewRepo.Selected = nil then
-    Exit;
+  begin
+    ActionFileRefresh.Enabled := False;
 
-  ShowGitignoreInfo(ListViewRepo.Selected);
+    ActionEditCopyLocalPath.Enabled := False;
+    ActionEditOpenLocalPath.Enabled := False;
+    ActionEditCopyRemotePath.Enabled := False;
+    ActionEditOpenRemotePath.Enabled := False;
+  end
+  else
+  begin
+    ActionFileRefresh.Enabled := True;
+
+    ActionEditCopyLocalPath.Enabled := ListViewRepo.Selected.SubItems[0] <> '';
+    ActionEditOpenLocalPath.Enabled := ListViewRepo.Selected.SubItems[0] <> '';
+    ActionEditCopyRemotePath.Enabled := ListViewRepo.Selected.SubItems[1] <> '';
+    ActionEditOpenRemotePath.Enabled := (ListViewRepo.Selected.SubItems[1] <> '') and (LowerCase(Copy(ListViewRepo.Selected.SubItems[1], 1, 4)) = 'http');
+  end;
+end;
+
+procedure TFormMain.ActionViewBasicExecute(Sender: TObject);
+begin
+  PageControlInfo.PageIndex := 0;
+end;
+
+procedure TFormMain.ActionViewBranchExecute(Sender: TObject);
+begin
+  PageControlInfo.PageIndex := 2;
+end;
+
+procedure TFormMain.ActionViewGitignoreExecute(Sender: TObject);
+begin
+  PageControlInfo.PageIndex := 4;
+end;
+
+procedure TFormMain.ActionViewRemoteExecute(Sender: TObject);
+begin
+  PageControlInfo.PageIndex := 1;
+end;
+
+procedure TFormMain.ActionViewStatusExecute(Sender: TObject);
+begin
+  PageControlInfo.PageIndex := 3;
 end;
 
 procedure TFormMain.ButtonGitignoreSaveClick(Sender: TObject);
@@ -132,11 +265,6 @@ begin
   end;
 
   MemoGitignore.Lines.SaveToFile(FileName);
-end;
-
-procedure TFormMain.ButtonRefreshClick(Sender: TObject);
-begin
-  RefreshSelectedRepoInfos;
 end;
 
 procedure TFormMain.ButtonShowGithubGitignoreClick(Sender: TObject);
@@ -184,39 +312,20 @@ begin
   end;
 end;
 
-procedure TFormMain.MenuItemCopyPathClick(Sender: TObject);
+procedure TFormMain.PopupMenuEditPopup(Sender: TObject);
 begin
-  Clipboard.AsText := ListViewRepo.Selected.SubItems[0];
-end;
-
-procedure TFormMain.MenuItemCopyRemoteClick(Sender: TObject);
-begin
-  Clipboard.AsText := ListViewRepo.Selected.SubItems[1];
-end;
-
-procedure TFormMain.MenuItemOpenRemoteClick(Sender: TObject);
-var
-  Url: string;
-begin
-  Url := ListViewRepo.Selected.SubItems[1];
-
-  OpenURL(Url);
-end;
-
-procedure TFormMain.PopupMenuRepoPopup(Sender: TObject);
-begin
-  MenuItemCopyPath.Enabled := False;
-  MenuItemCopyRemote.Enabled := False;
-  MenuItemOpenRemote.Enabled := False;
+  MenuItemPopupCopyLocalPath.Enabled := False;
+  MenuItemPopupOpenLocalPath.Enabled := False;
+  MenuItemPopupCopyRemotePath.Enabled := False;
 
   if ListViewRepo.Selected = nil then
     Exit;
 
   if ListViewRepo.Selected.SubItems[0] <> '' then
-    MenuItemCopyPath.Enabled := True;
+    MenuItemPopupCopyLocalPath.Enabled := True;
 
-  MenuItemCopyRemote.Enabled := ListViewRepo.Selected.SubItems[1] <> '';
-  MenuItemOpenRemote.Enabled := (ListViewRepo.Selected.SubItems[1] <> '') and (LowerCase(Copy(ListViewRepo.Selected.SubItems[1], 1, 4)) = 'http');
+  MenuItemPopupOpenLocalPath.Enabled := ListViewRepo.Selected.SubItems[1] <> '';
+  MenuItemPopupCopyRemotePath.Enabled := (ListViewRepo.Selected.SubItems[1] <> '') and (LowerCase(Copy(ListViewRepo.Selected.SubItems[1], 1, 4)) = 'http');
 end;
 
 function TFormMain.GetVersion: string;
@@ -445,7 +554,8 @@ procedure TFormMain.DoCreate;
 begin
   Caption := Application.Title + ' v' + GetVersion;
   DoubleBuffered := True;
-  PageControlInfo.ActivePageIndex := 0;
+
+  ActionViewBasic.Execute;
 end;
 
 procedure TFormMain.DoDestroy;

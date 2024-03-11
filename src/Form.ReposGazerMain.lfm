@@ -1,19 +1,20 @@
 object FormMain: TFormMain
-  Left = 266
-  Height = 1156
-  Top = 134
-  Width = 1460
+  Left = 398
+  Height = 922
+  Top = 360
+  Width = 1421
   Caption = 'FormMain'
-  ClientHeight = 1156
-  ClientWidth = 1460
+  ClientHeight = 922
+  ClientWidth = 1421
   DesignTimePPI = 144
+  Menu = MainMenuMain
   Position = poScreenCenter
   LCLVersion = '3.2.0.0'
   object ListViewRepo: TListView
     Left = 0
-    Height = 721
-    Top = 87
-    Width = 1460
+    Height = 522
+    Top = 52
+    Width = 1421
     Align = alClient
     AutoSortIndicator = True
     Columns = <    
@@ -46,7 +47,7 @@ object FormMain: TFormMain
       end>
     HideSelection = False
     MultiSelect = True
-    PopupMenu = PopupMenuRepo
+    PopupMenu = PopupMenuEdit
     ReadOnly = True
     RowSelect = True
     SortType = stText
@@ -56,61 +57,35 @@ object FormMain: TFormMain
     OnCompare = ListViewRepoCompare
     OnSelectItem = ListViewRepoSelectItem
   end
-  object PanelTop: TPanel
-    Left = 0
-    Height = 87
-    Top = 0
-    Width = 1460
-    Align = alTop
-    ClientHeight = 87
-    ClientWidth = 1460
-    TabOrder = 1
-    object ButtonReadProjects: TButton
-      Left = 24
-      Height = 50
-      Top = 18
-      Width = 222
-      Caption = 'Read Projects Dir'
-      TabOrder = 0
-      OnClick = ButtonReadProjectsClick
-    end
-    object ButtonRefresh: TButton
-      Left = 264
-      Height = 50
-      Top = 18
-      Width = 222
-      Caption = 'Refresh selected repo'
-      TabOrder = 1
-      OnClick = ButtonRefreshClick
-    end
-  end
   object SplitterMain: TSplitter
     Cursor = crVSplit
     Left = 0
     Height = 8
-    Top = 808
-    Width = 1460
+    Top = 574
+    Width = 1421
     Align = alBottom
     ResizeAnchor = akBottom
   end
   object PageControlInfo: TPageControl
     Left = 0
     Height = 300
-    Top = 816
-    Width = 1460
+    Top = 582
+    Width = 1421
     ActivePage = TabSheet5
     Align = alBottom
+    TabHeight = 40
     TabIndex = 4
-    TabOrder = 3
+    TabOrder = 2
+    TabWidth = 130
     object TabSheet1: TTabSheet
       Caption = 'Basic Info'
-      ClientHeight = 262
-      ClientWidth = 1452
+      ClientHeight = 252
+      ClientWidth = 1413
       object MemoBasicInfo: TMemo
         Left = 0
-        Height = 262
+        Height = 252
         Top = 0
-        Width = 1452
+        Width = 1413
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -119,13 +94,13 @@ object FormMain: TFormMain
     end
     object TabSheet2: TTabSheet
       Caption = 'Remote'
-      ClientHeight = 262
-      ClientWidth = 1452
+      ClientHeight = 252
+      ClientWidth = 1413
       object MemoRemote: TMemo
         Left = 0
-        Height = 262
+        Height = 252
         Top = 0
-        Width = 1452
+        Width = 1413
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -134,13 +109,13 @@ object FormMain: TFormMain
     end
     object TabSheet3: TTabSheet
       Caption = 'Branch'
-      ClientHeight = 262
-      ClientWidth = 1452
+      ClientHeight = 252
+      ClientWidth = 1413
       object MemoBranch: TMemo
         Left = 0
-        Height = 262
+        Height = 252
         Top = 0
-        Width = 1452
+        Width = 1413
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -149,13 +124,13 @@ object FormMain: TFormMain
     end
     object TabSheet4: TTabSheet
       Caption = 'Status'
-      ClientHeight = 262
-      ClientWidth = 1452
+      ClientHeight = 252
+      ClientWidth = 1413
       object MemoStatus: TMemo
         Left = 0
-        Height = 262
+        Height = 252
         Top = 0
-        Width = 1452
+        Width = 1413
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -164,24 +139,24 @@ object FormMain: TFormMain
     end
     object TabSheet5: TTabSheet
       Caption = 'gitignore'
-      ClientHeight = 262
-      ClientWidth = 1452
+      ClientHeight = 252
+      ClientWidth = 1413
       object MemoGitignore: TMemo
         Left = 0
-        Height = 262
+        Height = 252
         Top = 0
-        Width = 1216
+        Width = 1177
         Align = alClient
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
       object PanelGitignoreButtons: TPanel
-        Left = 1216
-        Height = 262
+        Left = 1177
+        Height = 252
         Top = 0
         Width = 236
         Align = alRight
-        ClientHeight = 262
+        ClientHeight = 252
         ClientWidth = 236
         TabOrder = 1
         object ButtonGitignoreReload: TButton
@@ -217,13 +192,13 @@ object FormMain: TFormMain
   object PanelStatus: TPanel
     Left = 0
     Height = 40
-    Top = 1116
-    Width = 1460
+    Top = 882
+    Width = 1421
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 40
-    ClientWidth = 1460
-    TabOrder = 4
+    ClientWidth = 1421
+    TabOrder = 3
     object PanelStatusProgress: TPanel
       Left = 0
       Height = 40
@@ -244,24 +219,213 @@ object FormMain: TFormMain
       end
     end
   end
-  object PopupMenuRepo: TPopupMenu
-    OnPopup = PopupMenuRepoPopup
-    Left = 972
-    Top = 234
-    object MenuItemCopyPath: TMenuItem
-      Caption = 'Copy path'
-      OnClick = MenuItemCopyPathClick
+  object CoolBar1: TCoolBar
+    Left = 0
+    Height = 52
+    Top = 0
+    Width = 1421
+    AutoSize = True
+    Bands = <    
+      item
+        Control = ToolBar1
+        Width = 179
+      end>
+    object ToolBar1: TToolBar
+      AnchorSideLeft.Control = CoolBar1
+      AnchorSideTop.Control = CoolBar1
+      Left = 24
+      Height = 38
+      Top = 5
+      Width = 818
+      Align = alNone
+      AutoSize = True
+      BorderSpacing.Left = 22
+      BorderSpacing.Top = 3
+      ButtonHeight = 36
+      ButtonWidth = 36
+      Caption = 'ToolBar1'
+      ShowCaptions = True
+      TabOrder = 0
+      object ToolButton1: TToolButton
+        Left = 1
+        Top = 2
+        Action = ActionFileOpenRepos
+      end
+      object ToolButton2: TToolButton
+        Left = 113
+        Top = 2
+        Action = ActionFileRefresh
+      end
+      object ToolButton4: TToolButton
+        Left = 184
+        Height = 36
+        Top = 2
+        Caption = 'ToolButton4'
+        Style = tbsSeparator
+      end
+      object ToolButton5: TToolButton
+        Left = 204
+        Top = 2
+        Action = ActionEditCopyLocalPath
+      end
+      object ToolButton6: TToolButton
+        Left = 345
+        Top = 2
+        Action = ActionEditOpenLocalPath
+      end
+      object ToolButton9: TToolButton
+        Left = 489
+        Top = 2
+        Action = ActionEditCopyRemotePath
+      end
+      object ToolButton3: TToolButton
+        Left = 652
+        Top = 2
+        Action = ActionEditOpenRemotePath
+      end
     end
-    object MenuItemCopyRemote: TMenuItem
-      Caption = 'Copy remote'
-      OnClick = MenuItemCopyRemoteClick
+  end
+  object PopupMenuEdit: TPopupMenu
+    OnPopup = PopupMenuEditPopup
+    Left = 1064
+    Top = 76
+    object MenuItemPopupCopyLocalPath: TMenuItem
+      Action = ActionEditCopyLocalPath
+    end
+    object MenuItemPopupOpenLocalPath: TMenuItem
+      Action = ActionEditOpenLocalPath
     end
     object MenuItemSep01: TMenuItem
       Caption = '-'
     end
-    object MenuItemOpenRemote: TMenuItem
-      Caption = 'Open remote'
-      OnClick = MenuItemOpenRemoteClick
+    object MenuItemPopupCopyRemotePath: TMenuItem
+      Action = ActionEditCopyRemotePath
+    end
+    object MenuItemPopupOpenRemotePath: TMenuItem
+      Action = ActionEditOpenRemotePath
+    end
+  end
+  object MainMenuMain: TMainMenu
+    Left = 904
+    Top = 76
+    object MenuItemFile: TMenuItem
+      Caption = 'File'
+      object MenuItemFileOpenRepos: TMenuItem
+        Action = ActionFileOpenRepos
+      end
+      object MenuItemFileRefresh: TMenuItem
+        Action = ActionFileRefresh
+      end
+      object SeparatorFile1: TMenuItem
+        Caption = '-'
+      end
+      object MenuItemFileExit: TMenuItem
+        Action = ActionFileExit
+      end
+    end
+    object MenuItemEdit: TMenuItem
+      Caption = 'Edit'
+      object MenuItemEditCopyLocalPath: TMenuItem
+        Action = ActionEditCopyLocalPath
+      end
+      object MenuItemEditOpenLocalPath: TMenuItem
+        Action = ActionEditOpenLocalPath
+      end
+      object SeparatorEdit1: TMenuItem
+        Caption = '-'
+      end
+      object MenuItemEditCopyRemotePath: TMenuItem
+        Action = ActionEditCopyRemotePath
+      end
+      object MenuItemEditOpenRemotePath: TMenuItem
+        Action = ActionEditOpenRemotePath
+      end
+    end
+    object MenuItemView: TMenuItem
+      Caption = 'View'
+      object MenuItemViewBasic: TMenuItem
+        Action = ActionViewBasic
+      end
+      object MenuItemViewRemote: TMenuItem
+        Action = ActionViewRemote
+      end
+      object MenuItemViewBranch: TMenuItem
+        Action = ActionViewBranch
+      end
+      object MenuItemViewStatus: TMenuItem
+        Action = ActionViewStatus
+      end
+      object MenuItemViewGitignore: TMenuItem
+        Action = ActionViewGitignore
+      end
+    end
+    object MenuItemAbout: TMenuItem
+      Caption = 'About'
+    end
+  end
+  object ActionListMain: TActionList
+    OnUpdate = ActionListMainUpdate
+    Left = 740
+    Top = 76
+    object ActionEditCopyLocalPath: TAction
+      Category = 'Edit'
+      Caption = 'Copy Local Path'
+      OnExecute = ActionEditCopyLocalPathExecute
+    end
+    object ActionEditOpenLocalPath: TAction
+      Category = 'Edit'
+      Caption = 'Open Local Path'
+      OnExecute = ActionEditOpenLocalPathExecute
+    end
+    object ActionEditCopyRemotePath: TAction
+      Category = 'Edit'
+      Caption = 'Copy Remote Path'
+      OnExecute = ActionEditCopyRemotePathExecute
+    end
+    object ActionEditOpenRemotePath: TAction
+      Category = 'Edit'
+      Caption = 'Open Remote Path'
+      OnExecute = ActionEditOpenRemotePathExecute
+    end
+    object ActionFileOpenRepos: TAction
+      Category = 'File'
+      Caption = 'Open Repos'
+      OnExecute = ActionFileOpenReposExecute
+    end
+    object ActionFileRefresh: TAction
+      Category = 'File'
+      Caption = 'Refresh'
+      OnExecute = ActionFileRefreshExecute
+    end
+    object ActionFileExit: TAction
+      Category = 'File'
+      Caption = 'Exit'
+      OnExecute = ActionFileExitExecute
+    end
+    object ActionViewBasic: TAction
+      Category = 'View'
+      Caption = 'Basic'
+      OnExecute = ActionViewBasicExecute
+    end
+    object ActionViewRemote: TAction
+      Category = 'View'
+      Caption = 'Remote'
+      OnExecute = ActionViewRemoteExecute
+    end
+    object ActionViewBranch: TAction
+      Category = 'View'
+      Caption = 'Branch'
+      OnExecute = ActionViewBranchExecute
+    end
+    object ActionViewStatus: TAction
+      Category = 'View'
+      Caption = 'Status'
+      OnExecute = ActionViewStatusExecute
+    end
+    object ActionViewGitignore: TAction
+      Category = 'View'
+      Caption = '.gitignore'
+      OnExecute = ActionViewGitignoreExecute
     end
   end
 end
