@@ -28,7 +28,7 @@ Available for Windows, macOS, and Linux.
 
 ## Usage
 
-1. Click Read button.
+1. Click **Open Repos** button.
 2. Select git repositories directory.
 
 ## History
@@ -37,6 +37,10 @@ Available for Windows, macOS, and Linux.
 - 2018-09-19 : initial project
 
 ## Credits
+
+## Resources
+
+- [Google Material Icons](https://fonts.google.com/icons?icon.platform=web)
 
 ## License
 
