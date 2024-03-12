@@ -27,7 +27,8 @@ type
     ButtonGitignoreReload: TButton;
     ButtonGitignoreSave: TButton;
     ButtonShowGithubGitignore: TButton;
-    CoolBar1: TCoolBar;
+    CoolBarMain: TCoolBar;
+    ImageListMain: TImageList;
     ListViewRepo: TListView;
     MainMenuMain: TMainMenu;
     MemoBasicInfo: TMemo;
@@ -65,19 +66,26 @@ type
     ProgressBar: TProgressBar;
     SeparatorFile1: TMenuItem;
     SplitterMain: TSplitter;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
-    TabSheet3: TTabSheet;
-    TabSheet4: TTabSheet;
-    TabSheet5: TTabSheet;
-    ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
-    ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
-    ToolButton5: TToolButton;
-    ToolButton6: TToolButton;
-    ToolButton9: TToolButton;
+    TabSheetBasic: TTabSheet;
+    TabSheetRemote: TTabSheet;
+    TabSheetBranch: TTabSheet;
+    TabSheetStatus: TTabSheet;
+    TabSheetGitignore: TTabSheet;
+    ToolBarMenu: TToolBar;
+    ToolButtonViewBasic: TToolButton;
+    ToolButtonViewRemote: TToolButton;
+    ToolButtonViewBranch: TToolButton;
+    ToolButtonViewStatus: TToolButton;
+    ToolButtonViewGitignore: TToolButton;
+    ToolButtonSep03: TToolButton;
+    ToolButtonFileOpenRepos: TToolButton;
+    ToolButtonFileRefresh: TToolButton;
+    ToolButtonEditOpenRemotePath: TToolButton;
+    ToolButtonSep01: TToolButton;
+    ToolButtonEditCopyLocalPath: TToolButton;
+    ToolButtonEditOpenLocalPath: TToolButton;
+    ToolButtonEditCopyRemotePath: TToolButton;
+    ToolButtonSep02: TToolButton;
     procedure ActionEditCopyLocalPathExecute(Sender: TObject);
     procedure ActionEditCopyRemotePathExecute(Sender: TObject);
     procedure ActionEditOpenLocalPathExecute(Sender: TObject);
@@ -223,26 +231,36 @@ end;
 procedure TFormMain.ActionViewBasicExecute(Sender: TObject);
 begin
   PageControlInfo.PageIndex := 0;
+
+  ActionViewBasic.Checked := True;
 end;
 
 procedure TFormMain.ActionViewBranchExecute(Sender: TObject);
 begin
   PageControlInfo.PageIndex := 2;
+
+  ActionViewBranch.Checked := True;
 end;
 
 procedure TFormMain.ActionViewGitignoreExecute(Sender: TObject);
 begin
   PageControlInfo.PageIndex := 4;
+
+  ActionViewGitignore.Checked := True;
 end;
 
 procedure TFormMain.ActionViewRemoteExecute(Sender: TObject);
 begin
   PageControlInfo.PageIndex := 1;
+
+  ActionViewRemote.Checked := True;
 end;
 
 procedure TFormMain.ActionViewStatusExecute(Sender: TObject);
 begin
   PageControlInfo.PageIndex := 3;
+
+  ActionViewStatus.Checked := True;
 end;
 
 procedure TFormMain.ButtonGitignoreSaveClick(Sender: TObject);

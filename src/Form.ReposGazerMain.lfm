@@ -1,20 +1,20 @@
 object FormMain: TFormMain
   Left = 398
-  Height = 922
+  Height = 800
   Top = 360
-  Width = 1421
+  Width = 1000
   Caption = 'FormMain'
-  ClientHeight = 922
-  ClientWidth = 1421
+  ClientHeight = 800
+  ClientWidth = 1000
   DesignTimePPI = 144
   Menu = MainMenuMain
   Position = poScreenCenter
   LCLVersion = '3.2.0.0'
   object ListViewRepo: TListView
     Left = 0
-    Height = 522
-    Top = 52
-    Width = 1421
+    Height = 392
+    Top = 60
+    Width = 1000
     Align = alClient
     AutoSortIndicator = True
     Columns = <    
@@ -61,97 +61,97 @@ object FormMain: TFormMain
     Cursor = crVSplit
     Left = 0
     Height = 8
-    Top = 574
-    Width = 1421
+    Top = 452
+    Width = 1000
     Align = alBottom
     ResizeAnchor = akBottom
   end
   object PageControlInfo: TPageControl
     Left = 0
     Height = 300
-    Top = 582
-    Width = 1421
-    ActivePage = TabSheet5
+    Top = 460
+    Width = 1000
+    ActivePage = TabSheetBasic
     Align = alBottom
     TabHeight = 40
-    TabIndex = 4
+    TabIndex = 0
     TabOrder = 2
     TabWidth = 130
-    object TabSheet1: TTabSheet
+    object TabSheetBasic: TTabSheet
       Caption = 'Basic Info'
       ClientHeight = 252
-      ClientWidth = 1413
+      ClientWidth = 992
       object MemoBasicInfo: TMemo
         Left = 0
         Height = 252
         Top = 0
-        Width = 1413
+        Width = 992
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
     end
-    object TabSheet2: TTabSheet
+    object TabSheetRemote: TTabSheet
       Caption = 'Remote'
       ClientHeight = 252
-      ClientWidth = 1413
+      ClientWidth = 992
       object MemoRemote: TMemo
         Left = 0
         Height = 252
         Top = 0
-        Width = 1413
+        Width = 992
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
     end
-    object TabSheet3: TTabSheet
+    object TabSheetBranch: TTabSheet
       Caption = 'Branch'
       ClientHeight = 252
-      ClientWidth = 1413
+      ClientWidth = 992
       object MemoBranch: TMemo
         Left = 0
         Height = 252
         Top = 0
-        Width = 1413
+        Width = 992
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
     end
-    object TabSheet4: TTabSheet
+    object TabSheetStatus: TTabSheet
       Caption = 'Status'
       ClientHeight = 252
-      ClientWidth = 1413
+      ClientWidth = 992
       object MemoStatus: TMemo
         Left = 0
         Height = 252
         Top = 0
-        Width = 1413
+        Width = 992
         Align = alClient
         ReadOnly = True
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
     end
-    object TabSheet5: TTabSheet
+    object TabSheetGitignore: TTabSheet
       Caption = 'gitignore'
       ClientHeight = 252
-      ClientWidth = 1413
+      ClientWidth = 992
       object MemoGitignore: TMemo
         Left = 0
         Height = 252
         Top = 0
-        Width = 1177
+        Width = 756
         Align = alClient
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
       object PanelGitignoreButtons: TPanel
-        Left = 1177
+        Left = 756
         Height = 252
         Top = 0
         Width = 236
@@ -192,12 +192,12 @@ object FormMain: TFormMain
   object PanelStatus: TPanel
     Left = 0
     Height = 40
-    Top = 882
-    Width = 1421
+    Top = 760
+    Width = 1000
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 40
-    ClientWidth = 1421
+    ClientWidth = 1000
     TabOrder = 3
     object PanelStatusProgress: TPanel
       Left = 0
@@ -219,76 +219,118 @@ object FormMain: TFormMain
       end
     end
   end
-  object CoolBar1: TCoolBar
+  object CoolBarMain: TCoolBar
     Left = 0
-    Height = 52
+    Height = 60
     Top = 0
-    Width = 1421
+    Width = 1000
     AutoSize = True
     Bands = <    
       item
-        Control = ToolBar1
+        Control = ToolBarMenu
         Width = 179
       end>
-    object ToolBar1: TToolBar
-      AnchorSideLeft.Control = CoolBar1
-      AnchorSideTop.Control = CoolBar1
+    object ToolBarMenu: TToolBar
+      AnchorSideLeft.Control = CoolBarMain
+      AnchorSideTop.Control = CoolBarMain
       Left = 24
-      Height = 38
+      Height = 50
       Top = 5
-      Width = 818
+      Width = 553
       Align = alNone
       AutoSize = True
       BorderSpacing.Left = 22
       BorderSpacing.Top = 3
-      ButtonHeight = 36
-      ButtonWidth = 36
-      Caption = 'ToolBar1'
-      ShowCaptions = True
+      ButtonHeight = 48
+      ButtonWidth = 48
+      Caption = 'ToolBarMain'
+      Images = ImageListMain
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
-      object ToolButton1: TToolButton
+      object ToolButtonFileOpenRepos: TToolButton
         Left = 1
         Top = 2
         Action = ActionFileOpenRepos
       end
-      object ToolButton2: TToolButton
-        Left = 113
+      object ToolButtonFileRefresh: TToolButton
+        Left = 49
         Top = 2
         Action = ActionFileRefresh
       end
-      object ToolButton4: TToolButton
-        Left = 184
-        Height = 36
+      object ToolButtonSep01: TToolButton
+        Left = 97
+        Height = 48
         Top = 2
-        Caption = 'ToolButton4'
+        Caption = 'ToolButtonSep01'
         Style = tbsSeparator
       end
-      object ToolButton5: TToolButton
-        Left = 204
+      object ToolButtonEditCopyLocalPath: TToolButton
+        Left = 105
         Top = 2
         Action = ActionEditCopyLocalPath
       end
-      object ToolButton6: TToolButton
-        Left = 345
+      object ToolButtonEditOpenLocalPath: TToolButton
+        Left = 153
         Top = 2
         Action = ActionEditOpenLocalPath
       end
-      object ToolButton9: TToolButton
-        Left = 489
+      object ToolButtonEditCopyRemotePath: TToolButton
+        Left = 201
         Top = 2
         Action = ActionEditCopyRemotePath
       end
-      object ToolButton3: TToolButton
-        Left = 652
+      object ToolButtonEditOpenRemotePath: TToolButton
+        Left = 249
         Top = 2
         Action = ActionEditOpenRemotePath
+      end
+      object ToolButtonSep02: TToolButton
+        Left = 297
+        Height = 48
+        Top = 2
+        Caption = 'ToolButtonSep02'
+        Style = tbsSeparator
+      end
+      object ToolButtonViewBasic: TToolButton
+        Left = 305
+        Top = 2
+        Action = ActionViewBasic
+      end
+      object ToolButtonViewRemote: TToolButton
+        Left = 353
+        Top = 2
+        Action = ActionViewRemote
+      end
+      object ToolButtonViewBranch: TToolButton
+        Left = 401
+        Top = 2
+        Action = ActionViewBranch
+      end
+      object ToolButtonViewStatus: TToolButton
+        Left = 449
+        Top = 2
+        Action = ActionViewStatus
+      end
+      object ToolButtonViewGitignore: TToolButton
+        Left = 497
+        Top = 2
+        Action = ActionViewGitignore
+      end
+      object ToolButtonSep03: TToolButton
+        Left = 545
+        Height = 48
+        Top = 2
+        Caption = 'ToolButtonSep03'
+        Style = tbsSeparator
       end
     end
   end
   object PopupMenuEdit: TPopupMenu
+    Images = ImageListMain
     OnPopup = PopupMenuEditPopup
-    Left = 1064
-    Top = 76
+    Left = 636
+    Top = 112
     object MenuItemPopupCopyLocalPath: TMenuItem
       Action = ActionEditCopyLocalPath
     end
@@ -306,8 +348,9 @@ object FormMain: TFormMain
     end
   end
   object MainMenuMain: TMainMenu
-    Left = 904
-    Top = 76
+    Images = ImageListMain
+    Left = 496
+    Top = 112
     object MenuItemFile: TMenuItem
       Caption = 'File'
       object MenuItemFileOpenRepos: TMenuItem
@@ -364,68 +407,159 @@ object FormMain: TFormMain
     end
   end
   object ActionListMain: TActionList
+    Images = ImageListMain
     OnUpdate = ActionListMainUpdate
-    Left = 740
-    Top = 76
+    Left = 352
+    Top = 112
     object ActionEditCopyLocalPath: TAction
       Category = 'Edit'
       Caption = 'Copy Local Path'
+      Hint = 'Copy Local Path'
+      ImageIndex = 3
       OnExecute = ActionEditCopyLocalPathExecute
     end
     object ActionEditOpenLocalPath: TAction
       Category = 'Edit'
       Caption = 'Open Local Path'
+      Hint = 'Open Local Path'
+      ImageIndex = 4
       OnExecute = ActionEditOpenLocalPathExecute
     end
     object ActionEditCopyRemotePath: TAction
       Category = 'Edit'
       Caption = 'Copy Remote Path'
+      Hint = 'Copy Remote Path'
+      ImageIndex = 5
       OnExecute = ActionEditCopyRemotePathExecute
     end
     object ActionEditOpenRemotePath: TAction
       Category = 'Edit'
       Caption = 'Open Remote Path'
+      Hint = 'Open Remote Path'
+      ImageIndex = 6
       OnExecute = ActionEditOpenRemotePathExecute
     end
     object ActionFileOpenRepos: TAction
       Category = 'File'
       Caption = 'Open Repos'
+      Hint = 'Open Repos'
+      ImageIndex = 0
       OnExecute = ActionFileOpenReposExecute
     end
     object ActionFileRefresh: TAction
       Category = 'File'
       Caption = 'Refresh'
+      Hint = 'Refresh'
+      ImageIndex = 1
       OnExecute = ActionFileRefreshExecute
     end
     object ActionFileExit: TAction
       Category = 'File'
       Caption = 'Exit'
+      Hint = 'Exit'
+      ImageIndex = 2
       OnExecute = ActionFileExitExecute
     end
     object ActionViewBasic: TAction
       Category = 'View'
       Caption = 'Basic'
+      GroupIndex = 1
+      Hint = 'Basic'
+      ImageIndex = 7
       OnExecute = ActionViewBasicExecute
     end
     object ActionViewRemote: TAction
       Category = 'View'
       Caption = 'Remote'
+      GroupIndex = 1
+      Hint = 'Remote'
+      ImageIndex = 8
       OnExecute = ActionViewRemoteExecute
     end
     object ActionViewBranch: TAction
       Category = 'View'
       Caption = 'Branch'
+      GroupIndex = 1
+      Hint = 'Branch'
+      ImageIndex = 9
       OnExecute = ActionViewBranchExecute
     end
     object ActionViewStatus: TAction
       Category = 'View'
       Caption = 'Status'
+      GroupIndex = 1
+      Hint = 'Status'
+      ImageIndex = 10
       OnExecute = ActionViewStatusExecute
     end
     object ActionViewGitignore: TAction
       Category = 'View'
       Caption = '.gitignore'
+      GroupIndex = 1
+      Hint = '.gitignore'
+      ImageIndex = 11
       OnExecute = ActionViewGitignoreExecute
     end
+  end
+  object ImageListMain: TImageList
+    Height = 32
+    Width = 32
+    Left = 352
+    Top = 212
+    Bitmap = {
+      4C7A0C0000002000000020000000730600000000000078DAED9D4D685D4514C7
+      47620A91367EA055312088AD56E842DD3CB00A5ADC9A8A5E14A12A6EBA72E1A2
+      A0D01A2C76E1E62DC4851F48F0239B28DA4517B6D56D8B162264E33635EE6AA5
+      8158344D13CF90F3707273EF9B8F3B33E7DDBCFF1FFE8B8477EFEFCEDC7B67CE
+      998FF79482A081D14EF231F20C79B68FDF4AC0BE9B7C86BCEEE829F27844FE41
+      F25F1EFC25BE86587A81BCE6C1F7F50A799ECB3922C0EF798EFC90857FC1F2FC
+      85F882510F93167E91E0F92E8C3A280690FF22F8E2FC75F0C11F527E31E4FC67
+      C95733F4BF579955D63DE4B319F86799D524FE0CF10C9F7B27C27C0882A020DD
+      417E9E7C92FC39FB24FFEFF63EC7751A306F223F49FE8CF3B7BABEE55FF2A7E4
+      037C8CE2318229EE0342344A7E8DFCBB637EAC3F73897C987C33B39702F99AFD
+      1197AB97BBEAFEF328791F7917FB11F2DBE49FC8D78DBAF8D9B8AED9803A7FD5
+      60EBB191E3E4DD7D8ED1FDFAFB5CDE72BDF8F20F703DF6D8CF381E772BF7F54D
+      F99FF0BD5CE172BB6A2A42F96F23FFC3C79DB3D4B92A3DE775CFA50FFF39E3B8
+      A30DCB1DC23F611CB7CFE1F31D87F8CF67CCF263833F2ED0C64AF37DEB3FB642
+      9EBF2A3DCEB956C1EF54CAF7AFACBB8C7CEA1AF79B39DA9F9E8EF3B16B7C2E5F
+      85B6BF5A4F93AFF0B197F85C217DBE6FFF7327E778578CFEF2B0110BA4E87F6F
+      213FCCEDCB19233ED1C77CC8E76822DFF8639D3FFB067947A4F7D135FE5AE1CF
+      3C9531FE9C267FC0FFDBAD200882DA273D27ABE766E72D6D6CD9B1A4E764E794
+      FF786E2C4D1AE5F699FF8DA5D4E3FFC3C6D7F34913027C1D93BDCBE739EF710D
+      B1F87A0CE4C752DE3B91B9FEF55A9A5F8C78D1A51E62DFFFC7F81A5CEBC1C69F
+      30723957BF69C4EEB67AF0991F6CE2BA7A1874BE74FD87E4FE17233E7FBE6DC0
+      45A1F7EF5EB5310E2CD5FEECE23C5DAAFD95EE7FDADAFF4BC75FD2F1A774FC0D
+      41D28AB5FE2664AE37E6FAA390F633E6FAAB103EF2CF6AFE08F70D9301F167CF
+      937C8E9100FE41EE975654B3B5F7737C2E5FFEBC8AB7F66E3E806FC604A1F56F
+      AEBDF7E587CEDF9B9A75E8AFC1071F7CF0C197E1776AE2C75CFC3A810FBE247F
+      2162FCB710C07F4FFDBFA6B489AFF3B97CB583E3F7E906F9E8349F23D67A1808
+      4AA5BDE4AFC8CB9EE38F858A335EA9D93794FFF8672C7EAFDC8BCA6FFCB9BC06
+      F834F9CF007E8CF65EEB08F9B2007F8CD9BDB9A7CBA57A48CD37CBBDC67F9FCE
+      C0AF2AF79180FE37945F55EEB10CFC7EE55619F8FDCA6DBE9B85E3B8A22BDFA5
+      DC2172E5BB943B053FA4DC31EF7F48B963F09BDCEF18FC571ADCEF18FC3D6A63
+      7D79C8731EEBFEEFE17A1813E2E7C8BF869DEF1B7FB97891CFB99C20FE74B53E
+      E79709E26F172F337B2FD21B688085F97FCCFFB77DFE7F22325FEF7BF499FF9F
+      0DBC863AFEAFCAFDFB087BFBAFCF075C431DFF9A23FF07B579FFB96F3DD4F157
+      3DEA5DA9CDFBD063AC3FF5E58F07D6431DFF86275F05D6436CBE6F3DC4E6D7D5
+      436E7EB91E52F19BAE5705BF9ABF067E167EDDFC7F2EBE2D1F071F7C09FE8292
+      9DFFD7DF05233DFF7F4861FE1F827228C6FB56F5FE1D727CFF62B53755EDCF89
+      CCED6D48FB9BFAFB77DBC24F31FF80F99FB8FC8EE3586F0A7EC1F775D161BC32
+      36BF537AA6162DF510935F94D8E6351489F99D1AB6AD1E62F0F5D851576DFD3D
+      8FF27EE56EC53853AAE7CF75BC1C7CF05DF9B6F8C3C66F1A7FD8E2AF50BE6BFE
+      678B3F6DE345C8FF20086AABF41A21BD56486AFD91FE9CE4FAAB65952EF77459
+      7F86FCDBEEAEDABAEEA29B91DFE4FBD1B6033FE5FE1BF0C1071FFCB6F025FA9F
+      EDDCFF4BC75FD2F1A774FC0D4110F27FE4FFC8FF07915FB5E7E275F2F76AF377
+      7DA7E2D749FFD6E23141BED6FD42F7BF8874FD6DE0EBFD18BF914FA9ADF33FA3
+      19F8FAF7E01E55D5BFEBB53F037F7FC531A37C4DE732F07BE536E7DF4EF13D59
+      CDF8FE1542EDDFA0F087F578DBFE3FE4FFC8FF91FF4310D4463D48FE2272FBF3
+      37F96BB5B18FDEA6E944EDAFDEC737E3C05F4AD8FFE8BDECB6DF025E5569FBDF
+      9196F35FAA88B9F4EF137FE798FF37E5D71DAFFFFF8E205FEB3EA1FBFF72A4EB
+      6F13FF0FF2379C7F3EC1C73E90B1FEBF2DB525BD767B58F8D2F53FACCFBF74FB
+      23DDFE4AF73FDBBDFF978EBFA4E34FE9F81B82A0E115E6FF31FFDF86F97F73BD
+      6537E3FC4B4F21FB1FC1DF3E7CDBEF8561FE34CDF1B6EFFBC5FA17F073F373F6
+      3F98FFC7FC3FE6FF210842FE8FFC1FEBFFF3AEBFC4F15BF3EF615CFF2CBDFEDC
+      54CEF5F7FD9463FF41BFFC7F5421FFDDEEFB8FEA946BFF95F4FE33E4FFC8FF91
+      FF4351F41F0AF07A04
+    }
   end
 end
