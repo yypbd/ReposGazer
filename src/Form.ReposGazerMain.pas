@@ -29,6 +29,7 @@ type
     ButtonShowGithubGitignore: TButton;
     CoolBarMain: TCoolBar;
     ImageListMain: TImageList;
+    LabelStatusRootPath: TLabel;
     ListViewRepo: TListView;
     MainMenuMain: TMainMenu;
     MemoBasicInfo: TMemo;
@@ -48,6 +49,7 @@ type
     MenuItemViewGitignore: TMenuItem;
     MenuItemEditCopyLocalPath: TMenuItem;
     MenuItemEditCopyRemotePath: TMenuItem;
+    PanelStatusPath: TPanel;
     SeparatorEdit1: TMenuItem;
     MenuItemEditOpenRemotePath: TMenuItem;
     MenuItemView: TMenuItem;
@@ -158,6 +160,7 @@ begin
   if SelectDirectory('', '', Directory, False) then
   begin
     ListViewRepo.Items.Clear;
+    LabelStatusRootPath.Caption := 'Root Path : ' + Directory;
 
     SearchGitRepoRecursive(Directory);
 

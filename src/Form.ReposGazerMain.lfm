@@ -210,12 +210,33 @@ object FormMain: TFormMain
       ClientWidth = 420
       TabOrder = 0
       object ProgressBar: TProgressBar
-        Left = 0
-        Height = 40
-        Top = 0
-        Width = 420
+        Left = 4
+        Height = 32
+        Top = 4
+        Width = 412
         Align = alClient
+        BorderSpacing.Left = 4
+        BorderSpacing.Top = 4
+        BorderSpacing.Right = 4
+        BorderSpacing.Bottom = 4
         TabOrder = 0
+      end
+    end
+    object PanelStatusPath: TPanel
+      Left = 420
+      Height = 40
+      Top = 0
+      Width = 580
+      Align = alClient
+      ClientHeight = 40
+      ClientWidth = 580
+      TabOrder = 1
+      object LabelStatusRootPath: TLabel
+        Left = 10
+        Height = 18
+        Top = 12
+        Width = 98
+        Caption = 'Root Path : '
       end
     end
   end
