@@ -111,7 +111,8 @@ type
   private
     FColumnToSort: Integer;
 
-    procedure SearchDirectory(const APath: string);
+    procedure SearchGitRepoRecursive(const APath: string);
+    procedure AddGitRepoToListView(const APath: string);
     procedure RefreshRepoInfos;
     procedure RefreshSelectedRepoInfos;
     procedure RefreshRepoInfo(AListItem: TListItem);
@@ -142,10 +143,6 @@ uses
 
 { TFormMain }
 
-// TODO : const to hidden data index
-// TODO : status bar
-// TODO : Toolbar
-
 procedure TFormMain.ButtonGitignoreReloadClick(Sender: TObject);
 begin
   if ListViewRepo.Selected = nil then
@@ -162,7 +159,7 @@ begin
   begin
     ListViewRepo.Items.Clear;
 
-    SearchDirectory(Directory);
+    SearchGitRepoRecursive(Directory);
 
     RefreshRepoInfos;
   end;
@@ -344,11 +341,10 @@ begin
   MenuItemPopupCopyRemotePath.Enabled := (ListViewRepo.Selected.SubItems[1] <> '') and (LowerCase(Copy(ListViewRepo.Selected.SubItems[1], 1, 4)) = 'http');
 end;
 
-procedure TFormMain.SearchDirectory(const APath: string);
+procedure TFormMain.SearchGitRepoRecursive(const APath: string);
 var
   FileList: TStringList;
   I: Integer;
-  ListItem: TListItem;
 begin
   FileList := FindAllDirectories(APath, False);
 
@@ -358,31 +354,39 @@ begin
 
     if ExistsDotGit(FileList) then
     begin
-      ListItem := ListViewRepo.Items.Add;
-
-      ListItem.Caption := ExtractFileName(APath);
-      ListItem.SubItems.Add(APath);
-
-      // Line Data
-      // 1 ~ 10
-      for I := 0 to 9 do
-        ListItem.SubItems.Add('');
-
-      // Hidden Data
-      // 11 ~ 20
-      for I := 0 to 9 do
-        ListItem.SubItems.Add('');
+      AddGitRepoToListView(APath);
     end
     else
     begin
       for I := 0 to FileList.Count - 1 do
       begin
-        SearchDirectory(FileList.Strings[I]);
+        SearchGitRepoRecursive(FileList.Strings[I]);
       end;
     end;
   finally
     FileList.Free;;
   end;
+end;
+
+procedure TFormMain.AddGitRepoToListView(const APath: string);
+var
+  ListItem: TListItem;
+  I: Integer;
+begin
+  ListItem := ListViewRepo.Items.Add;
+
+  ListItem.Caption := ExtractFileName(APath);
+  ListItem.SubItems.Add(APath);
+
+  // Line Data
+  // 1 ~ 10
+  for I := 0 to 9 do
+    ListItem.SubItems.Add('');
+
+  // Hidden Data
+  // 11 ~ 20
+  for I := 0 to 9 do
+    ListItem.SubItems.Add('');
 end;
 
 procedure TFormMain.RefreshRepoInfos;
